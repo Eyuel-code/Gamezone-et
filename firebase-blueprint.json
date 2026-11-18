@@ -1,0 +1,540 @@
+{
+  "entities": {
+    "UserPublic": {
+      "title": "UserPublic",
+      "description": "Public non-PII gamer profile and progression stats stored in /users/{userId}.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Authentication UID matching the document ID."
+        },
+        "username": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40,
+          "description": "Normalized handle for the gamer."
+        },
+        "gamerTag": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 40,
+          "description": "Display gamer tag."
+        },
+        "avatar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40000,
+          "description": "Avatar URL, compressed image data URI, or preset SVG data URI."
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "City or region in Ethiopia."
+        },
+        "favoriteGame": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "Primary game discipline."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["gamer", "admin"],
+          "description": "Role-based access control tier."
+        },
+        "rank": {
+          "type": "integer",
+          "description": "Leaderboard rank."
+        },
+        "loyaltyPoints": {
+          "type": "integer",
+          "description": "Earned platform XP."
+        },
+        "gamesPlayed": {
+          "type": "integer",
+          "description": "Total completed matches."
+        },
+        "highScore": {
+          "type": "integer",
+          "description": "Highest recorded game score."
+        },
+        "favoriteGames": {
+          "type": "array",
+          "description": "List of favorited game slugs (max 20)."
+        },
+        "achievements": {
+          "type": "array",
+          "description": "Earned gamer badges (max 50)."
+        },
+        "lastPage": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Last visited section so the gamer can continue where they left off."
+        },
+        "lastGameId": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Last selected game title."
+        },
+        "profileCompleted": {
+          "type": "boolean",
+          "description": "Whether mandatory gamer registration details are complete."
+        },
+        "identityVerified": {
+          "type": "boolean",
+          "description": "Whether player completed Ethiopian National ID / FIDO / Passport verification."
+        },
+        "identityType": {
+          "type": "string",
+          "enum": ["fayda_national_id", "ethiopian_fido", "passport"]
+        },
+        "identityMasked": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "hwidHash": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "isBanned": {
+          "type": "boolean",
+          "description": "Whether account is suspended for smurfing or security abuse."
+        },
+        "banReason": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "identityMismatchWarnings": {
+          "type": "integer",
+          "description": "Count of repeated ID/passport name mismatch offenses."
+        },
+        "isFlaggedForReview": {
+          "type": "boolean",
+          "description": "Whether account has been flagged for security review due to identity name mismatches."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "username",
+        "gamerTag",
+        "avatar",
+        "city",
+        "favoriteGame",
+        "role",
+        "rank",
+        "loyaltyPoints",
+        "gamesPlayed",
+        "highScore",
+        "favoriteGames",
+        "achievements",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserPrivate": {
+      "title": "UserPrivate",
+      "description": "Private PII, saved player IDs, notifications, and wallet data strictly isolated under /users/{userId}/private/info.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 160
+        },
+        "fullName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "walletBalance": {
+          "type": "number"
+        },
+        "savedPlayerIds": {
+          "type": "object",
+          "description": "Saved in-game player IDs keyed by game slug (max 10 entries)."
+        },
+        "lastPaymentMethod": {
+          "type": "string",
+          "enum": ["telebirr", "cbe", "wallet"]
+        },
+        "notifications": {
+          "type": "array",
+          "description": "Recent persistent in-app notifications (max 30)."
+        },
+        "identityHash": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Salted SHA-256 hash of verified identity document."
+        },
+        "identityVerifiedAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "knownHwidHashes": {
+          "type": "array",
+          "description": "Recent hardware fingerprint hashes bound to this user (max 10)."
+        },
+        "dailyPlaytimeDate": {
+          "type": "string",
+          "maxLength": 16,
+          "description": "Calendar day (YYYY-MM-DD) for the recorded active playtime."
+        },
+        "dailyPlaytimeSeconds": {
+          "type": "integer",
+          "description": "Active screen and gameplay seconds accumulated for dailyPlaytimeDate."
+        },
+        "dailyGameSeconds": {
+          "type": "integer",
+          "description": "In-browser HTML5 gameplay seconds accumulated for dailyPlaytimeDate."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "fullName", "phone", "walletBalance", "createdAt", "updatedAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Game top-up order and receipt record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "customerName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "customerPhone": { "type": "string", "minLength": 6, "maxLength": 32 },
+        "gameId": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "gameName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "playerId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "playerZone": { "type": "string", "maxLength": 80 },
+        "amountETB": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["telebirr", "cbe", "wallet"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "success", "failed"] },
+        "deliveryStatus": { "type": "string", "enum": ["pending", "processing", "completed", "cancelled"] },
+        "receiptRef": { "type": "string", "minLength": 3, "maxLength": 64 },
+        "note": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "userId",
+        "customerName",
+        "customerPhone",
+        "gameId",
+        "gameName",
+        "productId",
+        "productName",
+        "playerId",
+        "playerZone",
+        "amountETB",
+        "paymentMethod",
+        "paymentStatus",
+        "deliveryStatus",
+        "receiptRef",
+        "note",
+        "createdAt"
+      ]
+    },
+    "Registration": {
+      "title": "Registration",
+      "description": "Tournament registration entry.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "tournamentId": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "tournamentTitle": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "gamerTag": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "gameId": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "playerId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "teamName": { "type": "string", "maxLength": 80 },
+        "contactNumber": { "type": "string", "minLength": 6, "maxLength": 32 },
+        "status": { "type": "string", "enum": ["confirmed", "pending", "cancelled"] },
+        "registeredAt": { "type": "string", "maxLength": 64 },
+        "confirmationCode": { "type": "string", "maxLength": 32 },
+        "slotNumber": { "type": "integer" },
+        "entryType": { "type": "string", "enum": ["solo", "squad"] },
+        "squadMemberIds": { "type": "array", "description": "Optional teammate Player IDs (max 4)." },
+        "identityHash": { "type": "string", "maxLength": 64 },
+        "identityMasked": { "type": "string", "maxLength": 64 },
+        "hwidHash": { "type": "string", "maxLength": 64 },
+        "weekKey": { "type": "string", "maxLength": 16 },
+        "createdAtMs": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "tournamentId",
+        "tournamentTitle",
+        "userId",
+        "gamerTag",
+        "gameId",
+        "playerId",
+        "teamName",
+        "contactNumber",
+        "status",
+        "registeredAt",
+        "createdAt"
+      ]
+    },
+    "Tournament": {
+      "title": "Tournament",
+      "description": "Public zero-cost esports tournament metadata and bracket matches (no PII or room secrets).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "gameId": { "type": "string", "enum": ["freefire", "pubg", "eafc"] },
+        "gameName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "title": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "banner": { "type": "string", "maxLength": 500 },
+        "format": { "type": "string", "minLength": 3, "maxLength": 80 },
+        "entryMode": { "type": "string", "enum": ["solo", "squad", "either"] },
+        "date": { "type": "string", "minLength": 3, "maxLength": 64 },
+        "startTime": { "type": "string", "minLength": 3, "maxLength": 64 },
+        "capacity": { "type": "integer" },
+        "registeredCount": { "type": "integer" },
+        "status": { "type": "string", "enum": ["open", "filling", "full", "live", "completed"] },
+        "lobbyStatus": { "type": "string", "enum": ["waiting", "lobby_open", "in_progress", "completed"] },
+        "currentMatchLabel": { "type": "string", "maxLength": 80 },
+        "prizeRecognition": { "type": "string", "maxLength": 240 },
+        "organizer": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "rules": { "type": "array" },
+        "schedule": { "type": "array" },
+        "faqs": { "type": "array" },
+        "matches": { "type": "array" },
+        "roomPublished": { "type": "boolean" },
+        "roomUnlockMode": { "type": "string", "enum": ["immediate", "at_start"] },
+        "roomUnlockAt": { "type": "string", "maxLength": 80 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "gameId",
+        "gameName",
+        "title",
+        "format",
+        "date",
+        "startTime",
+        "capacity",
+        "registeredCount",
+        "status",
+        "prizeRecognition",
+        "organizer",
+        "description",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "TournamentLobby": {
+      "title": "TournamentLobby",
+      "description": "Protected custom room ID and password stored at /tournaments/{tournamentId}/lobby/credentials, readable only by admins and confirmed participants.",
+      "type": "object",
+      "properties": {
+        "tournamentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "roomId": { "type": "string", "maxLength": 64 },
+        "roomPassword": { "type": "string", "maxLength": 64 },
+        "server": { "type": "string", "maxLength": 80 },
+        "notes": { "type": "string", "maxLength": 300 },
+        "published": { "type": "boolean" },
+        "unlockMode": { "type": "string", "enum": ["immediate", "at_start"] },
+        "unlockAt": { "type": "string", "maxLength": 80 },
+        "publishedAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tournamentId", "roomId", "roomPassword", "server", "published", "unlockMode", "updatedAt"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "User support ticket or incident report submission.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "minLength": 3, "maxLength": 160 },
+        "category": { "type": "string", "enum": ["support", "payment", "bug", "abuse"] },
+        "subject": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "message": { "type": "string", "minLength": 5, "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["open", "in_progress", "resolved"] },
+        "adminNotes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userName", "email", "category", "subject", "message", "status", "adminNotes", "createdAt"]
+    },
+    "Dispute": {
+      "title": "Dispute",
+      "description": "Tournament match dispute report.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "matchId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "tournamentId": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "reportedBy": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "reason": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "description": { "type": "string", "minLength": 3, "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["open", "resolved", "dismissed"] },
+        "adminNotes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "matchId", "tournamentId", "reportedBy", "reason", "description", "status", "adminNotes", "createdAt"]
+    },
+    "IdentityBinding": {
+      "title": "IdentityBinding",
+      "description": "Cryptographic ID deduplication registry keyed by SHA-256 identityHash so one ID cannot bind to multiple accounts.",
+      "type": "object",
+      "properties": {
+        "identityHash": { "type": "string", "minLength": 32, "maxLength": 64, "pattern": "^[a-f0-9]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "idType": { "type": "string", "enum": ["fayda_national_id", "ethiopian_fido", "passport"] },
+        "maskedIdentifier": { "type": "string", "minLength": 4, "maxLength": 64 },
+        "hwidHash": { "type": "string", "maxLength": 64 },
+        "verifiedAt": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["identityHash", "userId", "idType", "maskedIdentifier", "verifiedAt", "createdAt", "updatedAt"]
+    },
+    "HwidRecord": {
+      "title": "HwidRecord",
+      "description": "Device Hardware Fingerprint anti-smurfing record tracking associated accounts on a physical device.",
+      "type": "object",
+      "properties": {
+        "hwidHash": { "type": "string", "minLength": 32, "maxLength": 64, "pattern": "^[a-f0-9]+$" },
+        "lastUserId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "associatedUserIds": { "type": "array", "description": "Distinct UIDs observed on this device (max 10)." },
+        "deviceSummary": { "type": "string", "maxLength": 160 },
+        "flagged": { "type": "boolean" },
+        "blocked": { "type": "boolean" },
+        "flaggedReason": { "type": "string", "maxLength": 300 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["hwidHash", "lastUserId", "associatedUserIds", "flagged", "blocked", "updatedAt"]
+    },
+    "SecurityEvent": {
+      "title": "SecurityEvent",
+      "description": "Real-time behavioral integrity, rate-limit, and anti-smurf security telemetry event.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "gamerTag": { "type": "string", "maxLength": 60 },
+        "category": {
+          "type": "string",
+          "enum": ["rate_limit", "anti_smurf_id", "anti_smurf_hwid", "name_mismatch", "macro_click", "automation_probe", "dom_tamper", "devtools_checkin", "ddos_shield"]
+        },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "summary": { "type": "string", "minLength": 3, "maxLength": 400 },
+        "hwidHash": { "type": "string", "maxLength": 64 },
+        "endpointOrSurface": { "type": "string", "maxLength": 120 },
+        "blocked": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "gamerTag", "category", "severity", "summary", "blocked", "createdAt"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Append-only cryptographically chained Admin Audit Log visible exclusively to verified admins.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "adminUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "adminEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 160 },
+        "action": { "type": "string", "minLength": 2, "maxLength": 64 },
+        "targetType": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "targetId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "summary": { "type": "string", "minLength": 3, "maxLength": 400 },
+        "ipMasked": { "type": "string", "maxLength": 64 },
+        "sessionFingerprint": { "type": "string", "maxLength": 160 },
+        "prevHash": { "type": "string", "minLength": 8, "maxLength": 64 },
+        "entryHash": { "type": "string", "minLength": 32, "maxLength": 64 },
+        "timestampLabel": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "adminUid", "adminEmail", "action", "targetType", "targetId", "summary", "prevHash", "entryHash", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPublic" },
+      "description": "Public gamer profile and XP stats keyed by Firebase Auth UID."
+    },
+    "/users/{userId}/private/info": {
+      "schema": { "$ref": "#/entities/UserPrivate" },
+      "description": "Private PII (email, phone, fullName) and wallet balance strictly scoped to account owner and admins."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "User top-up orders scoped to owner userId and admins."
+    },
+    "/tournaments/{tournamentId}": {
+      "schema": { "$ref": "#/entities/Tournament" },
+      "description": "Public zero-cost tournament catalog and bracket matches."
+    },
+    "/tournaments/{tournamentId}/lobby/credentials": {
+      "schema": { "$ref": "#/entities/TournamentLobby" },
+      "description": "Protected custom room ID and password scoped to admins and registered tournament participants."
+    },
+    "/registrations/{regId}": {
+      "schema": { "$ref": "#/entities/Registration" },
+      "description": "User tournament registrations scoped to owner userId and admins."
+    },
+    "/support_tickets/{ticketId}": {
+      "schema": { "$ref": "#/entities/SupportTicket" },
+      "description": "Support inquiries and incident reports scoped to owner userId and admins."
+    },
+    "/disputes/{disputeId}": {
+      "schema": { "$ref": "#/entities/Dispute" },
+      "description": "Tournament match disputes scoped to reporter userId and admins."
+    },
+    "/identity_bindings/{identityHash}": {
+      "schema": { "$ref": "#/entities/IdentityBinding" },
+      "description": "Unique cryptographic ID verification bindings preventing duplicate IDs across accounts."
+    },
+    "/hwid_registry/{hwidHash}": {
+      "schema": { "$ref": "#/entities/HwidRecord" },
+      "description": "Hardware fingerprint anti-smurfing registry."
+    },
+    "/security_events/{eventId}": {
+      "schema": { "$ref": "#/entities/SecurityEvent" },
+      "description": "Anti-tamper, rate-limit, and anti-smurf threat events."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Immutable admin audit log chain."
+    }
+  }
+}

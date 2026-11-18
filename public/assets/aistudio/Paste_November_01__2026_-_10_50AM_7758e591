@@ -1,0 +1,1243 @@
+# PROJECT MASTER PROMPT: GAMEZONEET
+## Complete development, functionality, database, user experience and gaming integration
+
+You are acting as a senior full-stack software engineer, UI/UX designer, product architect and gaming-platform developer.
+
+Your task is to transform my existing GameZoneET website into a fully functional, polished and interactive Ethiopian gaming platform.
+
+This is an existing project. The visual design and most of the homepage are already implemented. Do not discard the existing work or start from scratch. Inspect the current project, understand its architecture, preserve its established visual identity, and improve and complete it.
+
+This is not a request for a static landing page. I want the entire user experience implemented, including navigation, authentication, product selection, checkout simulation, tournament registration, playable games, database operations and administration.
+
+---
+
+# 1. PROJECT VISION
+
+**Brand:** GameZoneET
+
+**Market:** Ethiopia
+
+**Primary audience:** Ethiopian mobile and PC gamers.
+
+GameZoneET is an Ethiopian gaming marketplace and community platform built around three main pillars:
+
+1. Game top-ups and memberships.
+2. Free esports tournaments and gaming competitions.
+3. An integrated HTML5 browser-game library.
+
+Gaming news and updates will be a supporting feature rather than a fourth major business pillar.
+
+The long-term vision is to give Ethiopian gamers one convenient platform to purchase legitimate game products, participate in competitions, play lightweight browser games and stay connected with gaming communities.
+
+The first supported games are:
+
+- Garena Free Fire.
+- PUBG Mobile.
+- EA SPORTS FC.
+
+Design the architecture so additional games can be added through the admin dashboard without modifying the entire codebase.
+
+# 2. IMPORTANT DEVELOPMENT CONSTRAINTS
+
+I have essentially no development budget.
+
+Consequently:
+
+- Do not use paid APIs.
+- Do not require a credit card.
+- Do not subscribe to paid services.
+- Do not introduce unnecessary paid dependencies.
+- Prefer free and open-source libraries.
+- Prefer free hosting and database options, subject to their current limitations.
+- Do not require paid game assets.
+- Do not implement a real payment transaction requiring merchant credentials.
+- Do not create a complicated cloud-gaming infrastructure.
+
+The project is being prepared for a startup competition. Judges will evaluate the work, design, product functionality, innovation and business concept through a demonstration.
+
+Every major user journey must therefore work, even when some external transactions are simulated.
+
+**Important distinction:** A simulated transaction must never be represented as a genuine payment or actual delivery of game currency.
+
+Display an unmistakable DEMO MODE indicator anywhere simulated transactions occur.
+
+# 3. FIRST ACTION: AUDIT THE EXISTING PROJECT
+
+Before modifying anything:
+
+1. Inspect the entire project directory.
+2. Identify the existing frontend framework, backend, database, routing structure and dependencies.
+3. Inspect all existing pages and components.
+4. Identify which homepage elements are already functional.
+5. Identify missing functionality.
+6. Inspect existing responsive behavior.
+7. Identify unused files and duplicate components.
+8. Check whether any existing functionality can be reused.
+
+Produce a short internal implementation plan, then start implementing.
+
+Do not replace the existing project architecture without a compelling technical reason.
+
+Do not destroy the current homepage or its overall visual identity.
+
+Use the existing codebase wherever practical.
+
+# 4. DESIGN AND VISUAL IMPROVEMENTS
+
+Preserve the design language visible in the supplied GameZoneET screenshot.
+
+## Visual identity
+
+Maintain:
+
+- Dark navy and nearly black backgrounds.
+- Cyan and electric-blue accents.
+- Subtle gradients.
+- Glowing interactive elements.
+- Modern gaming typography.
+- Glass-like cards where appropriate.
+- Subtle animated backgrounds.
+- High-quality game artwork.
+- Clean spacing and alignment.
+
+The website should feel like a modern esports marketplace, not a generic ecommerce template.
+
+## Homepage
+
+Improve the existing hero section without removing its core concept.
+
+Suggested headline:
+
+"Top up. Compete. Discover your next game."
+
+Suggested supporting text:
+
+"Your gaming destination in Ethiopia. Access game products, join free tournaments and play browser games in one place."
+
+Keep two prominent calls to action:
+
+- Explore Game Top-Ups
+- Browse Tournaments
+
+Below the hero, display three clear service cards:
+
+1. Top-Ups.
+2. Tournaments.
+3. Play Games.
+
+Make these three pillars immediately understandable.
+
+## Navigation
+
+Implement functional navigation:
+
+- Home
+- Top-Up
+- Tournaments
+- Games
+- Leaderboard
+- News
+- Rewards
+- My Orders
+- Support
+- Sign In / Profile
+
+Remove the appearance of a funded wallet balance. We are not implementing a real financial wallet.
+
+Do not display fictional balances as real customer money.
+
+## Homepage sections
+
+Build the following sections:
+
+1. Featured games.
+2. Popular top-up packages.
+3. Upcoming tournaments.
+4. Playable browser games.
+5. Current gaming updates.
+6. Leaderboard preview.
+7. Community highlights.
+8. Footer containing contact, policies and social links.
+
+Do not invent statistics such as active gamers, tournament counts or revenue. Where sample statistics are necessary, identify them as demonstration data.
+
+## Responsive design
+
+The site must function properly on:
+
+- Low-end Android phones.
+- iPhones.
+- Tablets.
+- Laptops.
+- Desktop computers.
+
+Mobile is particularly important because many Ethiopian gamers primarily access websites through phones.
+
+Prioritize performance and low bandwidth usage.
+
+---
+
+# 5. PILLAR ONE: GAME TOP-UP MARKETPLACE
+
+This is the first major functional module.
+
+Build a complete top-up user journey.
+
+## Supported games
+
+Create individual product pages for:
+
+1. Free Fire.
+2. PUBG Mobile.
+3. EA SPORTS FC.
+
+Each game must have:
+
+- Game artwork.
+- Description.
+- Available product categories.
+- Product packages.
+- Prices.
+- Purchase instructions.
+- Delivery information.
+- Frequently asked questions.
+
+All product information must be managed through the database.
+
+## Product examples
+
+For demonstration purposes, seed the database with sample packages.
+
+Examples include:
+
+**Free Fire**
+- Diamond packages.
+- Membership packages.
+- Other authorized game products.
+
+**PUBG Mobile**
+- UC packages.
+- Other authorized products.
+
+**EA SPORTS FC**
+- FC Points where authorized.
+- Legitimate membership-related products where applicable.
+
+Do not list prohibited or unauthorized game currencies, especially unauthorized PUBG UC or EA Ultimate Team Coins.
+
+Do not pretend GameZoneET is an official publisher partner.
+
+Clearly distinguish demonstration products from products that are commercially available.
+
+## Top-up purchasing journey
+
+Implement this exact sequence:
+
+### Step 1: Select a game
+
+The user visits Top-Up and chooses one of the supported games.
+
+### Step 2: Select a product
+
+Display packages as attractive cards with:
+
+- Product name.
+- Quantity.
+- Price in ETB.
+- Description.
+- Purchase button.
+
+Use editable demonstration data. Never represent invented prices as actual market prices.
+
+### Step 3: Enter player information
+
+Depending on the game, request only the necessary information:
+
+- Player ID.
+- In-game name where appropriate.
+- Server or region if required.
+- Contact information for order updates.
+
+Never request a player's game password.
+
+Add player ID validation and a confirmation screen before proceeding.
+
+### Step 4: Order summary
+
+Show:
+
+- Selected game.
+- Selected product.
+- Player ID.
+- Product quantity.
+- Price.
+- Total amount.
+
+Allow the user to go back and edit their information.
+
+### Step 5: Select payment method
+
+This is extremely important.
+
+Create a professional Ethiopian payment selection interface.
+
+The available options should be:
+
+**Telebirr**
+
+Display its name and payment icon.
+
+**CBE Birr**
+
+Display its name and payment icon.
+
+The interface must let users select one of these methods.
+
+### Step 6: Payment checkout simulation
+
+We do not have merchant credentials, payment API keys or a budget for commercial payment processing.
+
+Therefore, implement a complete demonstration checkout.
+
+The checkout should:
+
+1. Receive the order information.
+2. Show the selected payment method.
+3. Show the payment amount in Ethiopian Birr.
+4. Display the order reference.
+5. Display a confirmation screen.
+6. Allow the user to complete a simulated checkout.
+7. Generate a demonstration receipt.
+8. Display the resulting order status.
+
+Implement three demonstration outcomes:
+
+- Simulated successful payment.
+- Simulated pending payment.
+- Simulated failed payment.
+
+Provide developer-only controls for testing these outcomes.
+
+Make it impossible to confuse a simulated transaction with a real payment.
+
+Show:
+
+"DEMO CHECKOUT — No real money will be charged."
+
+Never request an actual Telebirr PIN, CBE Birr password, bank password or OTP.
+
+Do not store any real financial credentials.
+
+## Payment architecture
+
+Create an abstraction such as:
+
+PaymentProvider
+- initializePayment()
+- verifyPayment()
+- getPaymentStatus()
+
+Implement a DemoPaymentProvider.
+
+Design the application so an authorized Chapa integration can eventually replace the demo provider without rewriting the checkout.
+
+Do not connect to live payment APIs or use fabricated API keys.
+
+Keep all future secret credentials on the server, never in frontend code.
+
+## Order management
+
+Create an order history page.
+
+Each order should have:
+
+- Unique order number.
+- Customer.
+- Game.
+- Product.
+- Player ID.
+- Amount.
+- Payment method.
+- Creation date.
+- Payment status.
+- Delivery status.
+
+Use appropriate states:
+
+- Pending payment.
+- Demo payment successful.
+- Payment failed.
+- Processing.
+- Completed (demo only).
+- Cancelled.
+
+Allow administrators to update order statuses.
+
+Create an order detail page with an understandable progress timeline.
+
+## Membership
+
+Create a membership section with:
+
+- Free membership.
+- Optional premium membership demonstration.
+- Membership benefits.
+- Subscription status.
+- Renewal information.
+- Account membership history.
+
+Do not charge actual subscription fees.
+
+Clearly label all demonstration memberships.
+
+---
+
+# 6. PILLAR TWO: FREE TOURNAMENT PLATFORM
+
+This should become one of GameZoneET's strongest community features.
+
+We will start with completely free-entry competitions.
+
+Do not build paid-entry tournaments, betting, wagering or participant-funded prize pools.
+
+## Tournament homepage
+
+Create a dedicated tournament page with filters:
+
+- All tournaments.
+- Free Fire.
+- PUBG Mobile.
+- EA SPORTS FC.
+- Upcoming.
+- Registration open.
+- Live.
+- Completed.
+
+Each tournament card should contain:
+
+- Tournament banner.
+- Tournament title.
+- Game.
+- Competition format.
+- Date.
+- Starting time.
+- Maximum participants.
+- Registered participants.
+- Tournament status.
+- Registration button.
+
+All dates and times should use the Africa/Addis_Ababa timezone.
+
+## Tournament details
+
+Each tournament needs a dedicated detail page containing:
+
+1. Overview.
+2. Game rules.
+3. Eligibility requirements.
+4. Registration deadline.
+5. Match schedule.
+6. Competition format.
+7. Maximum participant count.
+8. Organizer information.
+9. Prizes or recognition, if applicable.
+10. Frequently asked questions.
+
+All entry must be free.
+
+For the prototype, use badges, leaderboard points, certificates and community recognition as rewards. Any future sponsor-funded awards should have separately documented rules.
+
+## Registration system
+
+Users should be able to:
+
+- Register for a tournament.
+- Select solo or team participation where supported.
+- Enter their game ID.
+- Enter their team name where required.
+- Receive registration confirmation.
+- View registration status.
+- Cancel registration before the deadline.
+
+Prevent duplicate registrations.
+
+Automatically close registration when the maximum number of players is reached.
+
+## Tournament management
+
+Build a functional administrative tournament system.
+
+Administrators should be able to:
+
+- Create tournaments.
+- Edit tournaments.
+- Delete unpublished tournaments.
+- Select the game.
+- Set tournament dates.
+- Set registration deadlines.
+- Set participant limits.
+- Select competition format.
+- Publish and unpublish competitions.
+- Start and complete tournaments.
+
+## Tournament brackets
+
+Build a bracket management interface.
+
+Support:
+
+- Single elimination.
+- Group stages.
+- Match schedules.
+- Participant lists.
+- Match results.
+- Winner progression.
+- Final standings.
+
+For the competition demonstration, seed at least one sample tournament with realistic test participants.
+
+Never present sample tournament results as actual completed events.
+
+## Results and disputes
+
+Participants should be able to submit match results.
+
+An administrator must be able to approve or reject results.
+
+Create a simple dispute reporting system.
+
+Record:
+
+- Match ID.
+- Reporting participant.
+- Description.
+- Supporting screenshot attachment, if available.
+- Resolution status.
+- Administrator notes.
+
+## Leaderboards
+
+Create separate rankings for each supported game, plus an overall leaderboard.
+
+Display:
+
+- Player position.
+- Username.
+- Avatar.
+- Points.
+- Matches played.
+- Matches won.
+- Win rate.
+
+Use verified tournament results to update rankings.
+
+Seed sample users and clearly identify demonstration statistics.
+
+---
+
+# 7. PILLAR THREE: INTEGRATED HTML5 GAME LIBRARY
+
+This is an important differentiator.
+
+The main goal is to allow Ethiopian gamers to play lightweight games directly through GameZoneET.
+
+Our users may have older laptops and limited computing resources.
+
+We are not building a cloud-gaming service.
+
+Do not implement GTA streaming, remote GPUs or complicated multiplayer servers.
+
+Instead, build a lightweight HTML5 game library.
+
+## Technical approach
+
+Prioritize:
+
+- HTML5 Canvas.
+- JavaScript browser games.
+- Phaser.
+- Lightweight WebGL games only when necessary.
+
+Games should work inside GameZoneET through:
+
+1. Self-hosted game files.
+2. Properly licensed game embeds.
+3. Official iframe integrations explicitly permitted by the developer.
+
+Never scrape or copy copyrighted games from unrelated websites.
+
+Do not bypass X-Frame-Options, Content Security Policy or other anti-embedding restrictions.
+
+Do not use third-party game URLs in iframes unless embedding is explicitly permitted.
+
+A link working in a normal browser does not mean it is legally or technically embeddable.
+
+Prefer self-hosting legally reusable games when the license allows it.
+
+## Reference game URLs
+
+Use the following 23 reference URLs as candidates for research, testing, and evaluating game mechanics.
+
+They are not automatic licenses to redistribute or iframe the games. Verify the repository's code license, artwork, music and other assets individually. The Phaser examples are useful technical references, but their example assets have separate restrictions.
+
+### Phaser playable game examples
+
+1. Avoid the Germs  
+https://www.phaser.io/oss/examples/v4.1.0/games/avoid%20the%20germs/view/avoid-the-germs
+
+2. Breakout  
+https://www.phaser.io/oss/examples/v4.1.0/games/breakout/view/breakout
+
+3. Card Memory Game  
+https://www.phaser.io/oss/examples/v4.1.0/games/card%20memory/view/card-memory
+
+4. Coin Clicker  
+https://www.phaser.io/oss/examples/v4.1.0/games/coin%20clicker/view/coin-clicker
+
+5. Emoji Match  
+https://www.phaser.io/oss/examples/v4.1.0/games/emoji%20match/view/emoji-match
+
+6. Flood Fill Game  
+https://www.phaser.io/oss/examples/v4.1.0/games/flood%20fill/view/flood-fill
+
+7. Sliding Puzzle  
+https://www.phaser.io/oss/examples/v4.1.0/games/sliding%20puzzle/view/sliding-puzzle
+
+8. Stacker  
+https://www.phaser.io/oss/examples/v4.1.0/games/stacker/view/stacker
+
+9. Tom  
+https://www.phaser.io/oss/examples/v4.1.0/games/tom/view/tom
+
+10. Snake Game  
+https://www.phaser.io/oss/examples/v4.1.0/games/snake/view/part7
+
+11. Arcade Physics Platformer  
+https://www.phaser.io/oss/examples/v4.1.0/games/firstgame/view/part10
+
+### Additional browser game references
+
+12. 2048 — Playable version  
+https://gabrielecirulli.github.io/2048/
+
+13. 2048 — Original source repository  
+https://github.com/gabrielecirulli/2048
+
+14. Hextris — Playable version  
+https://hextris.github.io/hextris
+
+15. Hextris — Source repository  
+https://github.com/Hextris/hextris
+
+16. Crazy Racing — Playable reference  
+http://yuehaowang.github.io/games/crazy_racing/index.html
+
+17. Crazy Racing — Source repository  
+https://github.com/yuehaowang/crazy_racing
+
+18. Road Rush — Playable reference  
+https://road-rush-self.vercel.app/
+
+19. Road Rush — Source repository  
+https://github.com/Goutam-Sethi/Road-Rush
+
+20. JSPong — Playable reference  
+https://jspong.gamersi.at/
+
+21. JSPong — Source repository  
+https://github.com/gamersi/jspong
+
+### Official development resources
+
+22. Phaser complete game examples  
+https://www.phaser.io/oss/examples/v4.1.0/games
+
+23. Phaser open-source example repository  
+https://github.com/phaserjs/examples
+
+### Rules for these references
+
+Do not automatically integrate every reference.
+
+Inspect them and classify each candidate as:
+
+- Open-source and suitable for integration after license review.
+- Suitable only for visual or gameplay inspiration.
+- Suitable for embedding with explicit permission.
+- Unsuitable for redistribution.
+- Not working or incompatible.
+
+Important license notes:
+
+- The original 2048 repository declares the MIT license.
+- Hextris uses GPL-3.0, which has source-distribution and licensing obligations.
+- Phaser's example code is MIT-licensed, but its example assets are not automatically cleared for commercial use.
+- Some other game repositories mention externally sourced graphics and sounds. Check the individual assets.
+
+If a candidate cannot safely be integrated, do not use it.
+
+Instead, create an original implementation with original visual assets, using the game as general mechanical inspiration where appropriate.
+
+## Initial game library
+
+Start by selecting 5–8 high-quality games.
+
+Prioritize these categories:
+
+1. Racing.
+2. Arcade.
+3. Puzzle.
+4. Strategy.
+5. Memory and matching.
+6. Platform adventure.
+7. Casual games.
+
+The first collection should contain variety rather than numerous similar games.
+
+Do not advertise 50 playable games if only five actually work.
+
+Build a scalable database-backed catalog so additional games can be added later.
+
+## Games library interface
+
+Each game card should have:
+
+- Cover image.
+- Game title.
+- Category.
+- Short description.
+- Desktop/mobile compatibility.
+- Difficulty.
+- Play button.
+
+Add useful filters:
+
+- All games.
+- Racing.
+- Arcade.
+- Puzzle.
+- Adventure.
+- Strategy.
+- Popular.
+- Recently added.
+
+Add search.
+
+## Game player experience
+
+When the player clicks Play:
+
+1. Open a dedicated GameZoneET playing page.
+2. Display the selected game.
+3. Fit the game to the available screen.
+4. Provide a fullscreen option.
+5. Provide a restart button if supported.
+6. Provide an exit-to-library button.
+7. Show keyboard or touch instructions.
+8. Support mobile orientation.
+9. Display a loading state.
+10. Display an understandable error message if the game fails to load.
+
+The game must remain within GameZoneET's visual environment.
+
+For external licensed games, use a sandboxed iframe with only the permissions required by the game. Never bypass embedding restrictions.
+
+For self-hosted games, use the appropriate application route or an isolated game frame.
+
+Optimize all games for weaker devices and mobile browsers.
+
+---
+
+# 8. GAMING NEWS AND UPDATES
+
+News is a supporting section.
+
+Build a clean gaming news page with:
+
+- Free Fire updates.
+- PUBG Mobile updates.
+- EA SPORTS FC updates.
+- Gaming events.
+- New game releases.
+- Tournament announcements.
+- Gaming industry news.
+
+Each article should contain:
+
+- Title.
+- Image.
+- Category.
+- Publication date.
+- Brief summary.
+- Full content.
+- Original source link.
+
+Build simple news administration tools to add, edit, publish and delete articles.
+
+Use original summaries and link to official sources.
+
+Do not scrape copyrighted articles or copy complete news posts.
+
+For the demonstration, use clearly labelled sample content.
+
+---
+
+# 9. AUTHENTICATION AND USER ACCOUNTS
+
+The sign-in system currently needs to be implemented.
+
+Build:
+
+- Sign-up.
+- Sign-in.
+- Sign-out.
+- Password reset flow.
+- Email validation.
+- User profile.
+- Avatar.
+- Username.
+- Account settings.
+- User's orders.
+- Tournament registrations.
+- Game favorites.
+- Achievement history.
+
+Use appropriate password security if real authentication is enabled.
+
+Do not store passwords in localStorage.
+
+If the project has no backend credentials available, create a clearly labelled demonstration authentication mode. Do not represent that mode as production-secure authentication.
+
+Prefer an existing database if already configured.
+
+If a database is needed, choose a free option that does not require a paid plan or credit card. If external database setup is not available, provide a local demonstration database and migration files.
+
+Do not introduce an external service that prevents the project from running without payment.
+
+---
+
+# 10. USER PROFILE AND REWARDS
+
+Each registered user should have a profile page.
+
+Show:
+
+- Profile picture.
+- Username.
+- Registration date.
+- Favorite games.
+- Tournament history.
+- Leaderboard position.
+- Achievements.
+- Rewards and badges.
+
+Create a simple achievement system:
+
+- First registration.
+- First tournament completed.
+- First tournament win.
+- Five matches completed.
+- Ten matches completed.
+- Community contributor.
+
+Use achievement points, not a financial wallet balance.
+
+---
+
+# 11. DATABASE AND DATA STRUCTURE
+
+Inspect the existing architecture first.
+
+Create the necessary database models for:
+
+**Users**
+- ID.
+- Username.
+- Email.
+- Password/authentication reference.
+- Avatar.
+- Role.
+- Created date.
+
+**Products**
+- ID.
+- Game.
+- Product name.
+- Product category.
+- Quantity.
+- Price.
+- Availability.
+- Demonstration/real-product flag.
+
+**Orders**
+- ID.
+- User ID.
+- Product ID.
+- Player ID.
+- Amount.
+- Payment provider.
+- Payment status.
+- Delivery status.
+- Created date.
+
+**Payment attempts**
+- ID.
+- Order ID.
+- Provider.
+- Demonstration status.
+- Reference.
+- Created date.
+
+Never save actual financial credentials or OTPs.
+
+**Tournaments**
+- ID.
+- Title.
+- Game.
+- Description.
+- Format.
+- Start date.
+- Registration deadline.
+- Capacity.
+- Status.
+
+**Tournament registrations**
+- ID.
+- Tournament ID.
+- User ID.
+- Team information.
+- Player ID.
+- Registration status.
+
+**Tournament matches**
+- ID.
+- Tournament ID.
+- Participant IDs.
+- Result.
+- Winner.
+- Approval status.
+
+**Games**
+- ID.
+- Title.
+- Description.
+- Category.
+- Cover image.
+- Play location.
+- Integration type.
+- License status.
+- Mobile compatibility.
+- Publication status.
+
+**News**
+- ID.
+- Title.
+- Category.
+- Summary.
+- Content.
+- Image.
+- Source.
+- Publication date.
+
+**Support tickets**
+- ID.
+- User.
+- Subject.
+- Message.
+- Status.
+- Created date.
+
+Add the appropriate relationships and indexes.
+
+Create seed data for the competition demonstration.
+
+Use the same data source consistently across the homepage, product pages, orders, tournaments and admin dashboard.
+
+---
+
+# 12. ADMIN DASHBOARD
+
+Create a protected administrative dashboard.
+
+Administrators need to manage the entire platform without editing code.
+
+Include:
+
+**Overview**
+- Total registered users.
+- Orders.
+- Tournament registrations.
+- Published games.
+- News articles.
+
+Mark demonstration statistics clearly.
+
+**Products**
+- Create products.
+- Edit products.
+- Delete products.
+- Change availability.
+- Update demonstration prices.
+
+**Orders**
+- Search orders.
+- Inspect order details.
+- Update demonstration order status.
+
+**Tournaments**
+- Create and edit competitions.
+- Approve registrations.
+- Manage brackets.
+- Record match results.
+- Resolve disputes.
+
+**Games**
+- Add game entries.
+- Upload cover images.
+- Set categories.
+- Set integration types.
+- Set publication status.
+- Maintain a record of licensing verification.
+
+**News**
+- Write and publish articles.
+- Edit posts.
+- Manage categories.
+
+**Users**
+- Search users.
+- View public profiles.
+- Manage basic account issues.
+
+Ensure that admin privileges are enforced on the backend, not merely hidden by frontend buttons.
+
+---
+
+# 13. SECURITY AND RELIABILITY
+
+Implement:
+
+- Input validation.
+- Server-side authorization.
+- Role-based permissions.
+- Secure authentication.
+- Safe file uploads.
+- Protection against common injection attacks.
+- Appropriate rate limiting.
+- Environment variables for secrets.
+- Proper error handling.
+
+Never expose private API keys in frontend code.
+
+Never store payment secrets.
+
+Do not collect game account passwords.
+
+Do not use real customer banking information in the demo.
+
+Use fictional test users and sample transaction records.
+
+---
+
+# 14. PERFORMANCE AND ACCESSIBILITY
+
+The primary audience may use relatively low-powered devices and slower connections.
+
+Optimize:
+
+- Image size.
+- Font loading.
+- JavaScript bundles.
+- Game loading.
+- Database queries.
+- Lazy loading.
+- Mobile navigation.
+
+Use lightweight image formats where suitable.
+
+Avoid unnecessary video backgrounds.
+
+Add:
+
+- Loading skeletons.
+- Empty states.
+- Error states.
+- Success notifications.
+- Accessible form labels.
+- Keyboard navigation.
+- Visible focus states.
+
+Make all buttons and interactive elements work.
+
+Do not leave nonfunctional decorative buttons.
+
+---
+
+# 15. DEVELOPMENT ORDER
+
+Implement the project in the following order.
+
+**Phase 1: Project inspection**
+- Inspect existing code.
+- Identify the current framework.
+- Preserve the design.
+- Establish the backend architecture.
+
+**Phase 2: Shared functionality**
+- Routing.
+- Authentication.
+- Database.
+- User profiles.
+- Admin authorization.
+
+**Phase 3: Top-up marketplace**
+- Product catalog.
+- Product detail pages.
+- Player ID forms.
+- Order summary.
+- Telebirr selection.
+- CBE Birr selection.
+- Demo payment checkout.
+- Order history.
+- Admin order management.
+
+**Phase 4: Tournaments**
+- Tournament catalog.
+- Tournament details.
+- Registration.
+- Brackets.
+- Match results.
+- Leaderboards.
+- Admin management.
+
+**Phase 5: Games**
+- Inspect the reference links.
+- Audit licensing.
+- Select initial games.
+- Integrate permitted titles.
+- Develop original alternatives when needed.
+- Build game player pages.
+- Implement fullscreen and mobile controls.
+
+**Phase 6: News and rewards**
+- News catalog.
+- News detail pages.
+- Administration.
+- Badges.
+- Achievements.
+
+**Phase 7: Final integration**
+- Improve homepage.
+- Connect all sections.
+- Fix mobile responsiveness.
+- Remove dead buttons.
+- Remove false statistics.
+- Test every user journey.
+
+---
+
+# 16. REQUIRED TESTING
+
+Do not finish after the interface looks complete.
+
+Test the complete user experience.
+
+### Authentication
+- Create a demonstration account.
+- Sign in.
+- Sign out.
+- Verify session handling.
+
+### Top-ups
+- Select Free Fire.
+- Select a product.
+- Enter a player ID.
+- Confirm player details.
+- Review order.
+- Select Telebirr.
+- Complete simulated checkout.
+- Verify order history.
+
+Repeat for CBE Birr.
+
+Test failed and pending outcomes.
+
+### Tournaments
+- Open a tournament.
+- Register.
+- Prevent duplicate registration.
+- View registration.
+- Display match brackets.
+- Record a result.
+- Update the leaderboard.
+
+### Games
+- Open the game catalog.
+- Search.
+- Filter by category.
+- Launch each published game.
+- Test keyboard controls.
+- Test touch controls.
+- Test fullscreen.
+- Test mobile resizing.
+- Test returning to the catalog.
+
+### Administration
+- Sign in as admin.
+- Create a product.
+- Update a product.
+- Create a tournament.
+- Approve a match result.
+- Publish a game.
+- Publish an article.
+
+### Final quality
+- Check for broken links.
+- Check browser console errors.
+- Check missing images.
+- Check responsive layouts.
+- Check navigation.
+- Check database persistence.
+
+Do not claim something works if it has not been tested.
+
+---
+
+# 17. FINAL DELIVERABLES
+
+When finished, provide:
+
+1. A complete functioning GameZoneET website.
+2. Connected navigation and all major user flows.
+3. Demonstration authentication.
+4. Database schema and seed data.
+5. Functional top-up and simulated checkout.
+6. Functional tournament registration and management.
+7. An initial playable HTML5 game library.
+8. Functional news and rewards sections.
+9. Administrative dashboard.
+10. Responsive mobile design.
+11. `.env.example` with no real credentials.
+12. README with installation instructions.
+13. A list of required external accounts, clearly separating optional future services from what already works.
+14. A list of features that are fully functional, simulated or still awaiting permission/credentials.
+
+Do not leave the implementation at the planning stage.
+
+Do not return only recommendations, wireframes or pseudocode.
+
+Write and integrate the actual code into the existing project.
+
+When encountering a limitation, implement the best working alternative and document the limitation rather than abandoning the entire feature.
+
+## FINAL PRODUCT STANDARD
+
+When someone visits GameZoneET, they should be able to understand the platform immediately.
+
+They should be able to create a demonstration account, explore game products, complete a realistic simulated top-up checkout, register for a free tournament, inspect their rankings, open playable browser games and read gaming updates.
+
+An administrator should be able to manage the content and activities.
+
+Everything should feel like one coherent product, not three unrelated websites.
+
+**Build GameZoneET as a complete, polished and believable Ethiopian gaming marketplace and community platform, with a realistic foundation for future commercial development.**

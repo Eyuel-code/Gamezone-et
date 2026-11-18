@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Master Chess FIDE Edition</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      background: radial-gradient(circle at center, #1e293b, #0f172a, #020617);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: min(92vw, 540px);
+      margin-bottom: 12px;
+      padding: 8px 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .hud-title { font-weight: 800; font-size: 15px; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
+    .status-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    #board {
+      width: min(92vw, 540px);
+      height: min(92vw, 540px);
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      border: 4px solid #334155;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(24px, 7vw, 44px);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s ease;
+    }
+    .cell.light { background: #cbd5e1; color: #0f172a; }
+    .cell.dark { background: #475569; color: #f8fafc; }
+    .cell.selected { background: #38bdf8 !important; }
+    .cell.valid-move::after {
+      content: '';
+      width: 32%;
+      height: 32%;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.7);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+      position: absolute;
+    }
+    .cell.check { background: #ef4444 !important; }
+    .controls {
+      display: flex;
+      gap: 10px;
+      width: min(92vw, 540px);
+      margin-top: 12px;
+    }
+    button {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #1e293b;
+      color: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button:hover { background: #334155; transform: translateY(-1px); }
+    button.primary { background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: #020617; border: none; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <div class="hud">
+    <div class="hud-title"><span>♚</span> Master Chess Pro</div>
+    <div class="status-badge" id="status">White to Move</div>
+  </div>
+  <div id="board"></div>
+  <div class="controls">
+    <button class="primary" onclick="initGame()">New Game</button>
+    <button onclick="aiMove()">AI Hint / Move</button>
+  </div>
+
+  <script>
+    const SYMBOLS = {
+      wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
+      bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
+    };
+
+    let board = [];
+    let turn = 'w';
+    let selected = null;
+    let validMoves = [];
+    let moveHistory = [];
+
+    function initGame() {
+      board = [
+        ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+        ['bP','bP','bP','bP','bP','bP','bP','bP'],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        ['wP','wP','wP','wP','wP','wP','wP','wP'],
+        ['wR','wN','wB','wQ','wK','wB','wN','wR']
+      ];
+      turn = 'w';
+      selected = null;
+      validMoves = [];
+      updateStatus("White to Move");
+      renderBoard();
+    }
+
+    function renderBoard() {
+      const container = document.getElementById('board');
+      container.innerHTML = '';
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const cell = document.createElement('div');
+          const isLight = (r + c) % 2 === 0;
+          cell.className = `cell ${isLight ? 'light' : 'dark'}`;
+          cell.dataset.r = r;
+          cell.dataset.c = c;
+
+          if (selected && selected.r === r && selected.c === c) {
+            cell.classList.add('selected');
+          }
+          if (validMoves.some(m => m.r === r && m.c === c)) {
+            cell.classList.add('valid-move');
+          }
+
+          const piece = board[r][c];
+          if (piece) {
+            cell.innerText = SYMBOLS[piece];
+            cell.style.color = piece.startsWith('w') ? '#0284c7' : '#0f172a';
+            cell.style.textShadow = piece.startsWith('w') ? '0 1px 2px rgba(255,255,255,0.6)' : 'none';
+          }
+
+          cell.onclick = () => onCellClick(r, c);
+          container.appendChild(cell);
+        }
+      }
+    }
+
+    function onCellClick(r, c) {
+      const piece = board[r][c];
+      if (selected) {
+        const isMove = validMoves.some(m => m.r === r && m.c === c);
+        if (isMove) {
+          executeMove(selected.r, selected.c, r, c);
+          selected = null;
+          validMoves = [];
+          renderBoard();
+          if (turn === 'b') {
+            setTimeout(aiMove, 400);
+          }
+          return;
+        }
+      }
+
+      if (piece && piece[0] === turn) {
+        selected = { r, c };
+        validMoves = getValidMoves(r, c);
+      } else {
+        selected = null;
+        validMoves = [];
+      }
+      renderBoard();
+    }
+
+    function getValidMoves(r, c) {
+      const piece = board[r][c];
+      if (!piece) return [];
+      const color = piece[0];
+      const type = piece[1];
+      const moves = [];
+
+      function add(nr, nc) {
+        if (nr < 0 || nr >= 8 || nc < 0 || nc >= 8) return false;
+        const target = board[nr][nc];
+        if (!target) { moves.push({ r: nr, c: nc }); return true; }
+        if (target[0] !== color) { moves.push({ r: nr, c: nc }); return false; }
+        return false;
+      }
+
+      if (type === 'P') {
+        const dir = color === 'w' ? -1 : 1;
+        const startRow = color === 'w' ? 6 : 1;
+        if (!board[r + dir]?.[c]) {
+          moves.push({ r: r + dir, c });
+          if (r === startRow && !board[r + 2 * dir]?.[c]) {
+            moves.push({ r: r + 2 * dir, c });
+          }
+        }
+        for (const dc of [-1, 1]) {
+          const target = board[r + dir]?.[c + dc];
+          if (target && target[0] !== color) moves.push({ r: r + dir, c: c + dc });
+        }
+      } else if (type === 'N') {
+        const jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+        for (const [dr, dc] of jumps) add(r + dr, c + dc);
+      } else if (type === 'B' || type === 'R' || type === 'Q') {
+        const dirs = [];
+        if (type === 'B' || type === 'Q') dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
+        if (type === 'R' || type === 'Q') dirs.push([-1,0],[1,0],[0,-1],[0,1]);
+        for (const [dr, dc] of dirs) {
+          let step = 1;
+          while (add(r + dr * step, c + dc * step)) step++;
+        }
+      } else if (type === 'K') {
+        const dirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+        for (const [dr, dc] of dirs) add(r + dr, c + dc);
+      }
+
+      return moves;
+    }
+
+    function executeMove(fromR, fromC, toR, toC) {
+      const piece = board[fromR][fromC];
+      board[toR][toC] = piece;
+      board[fromR][fromC] = null;
+
+      // Pawn promotion to Queen
+      if (piece === 'wP' && toR === 0) board[toR][toC] = 'wQ';
+      if (piece === 'bP' && toR === 7) board[toR][toC] = 'bQ';
+
+      turn = turn === 'w' ? 'b' : 'w';
+      updateStatus(turn === 'w' ? "White's Turn" : "Black AI Thinking...");
+    }
+
+    function aiMove() {
+      if (turn !== 'b') return;
+      const allMoves = [];
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          if (board[r][c] && board[r][c][0] === 'b') {
+            const moves = getValidMoves(r, c);
+            for (const m of moves) {
+              const target = board[m.r][m.c];
+              const score = target ? 10 : 1;
+              allMoves.push({ fromR: r, fromC: c, toR: m.r, toC: m.c, score });
+            }
+          }
+        }
+      }
+      if (allMoves.length === 0) {
+        updateStatus("Checkmate! White Wins!");
+        return;
+      }
+      allMoves.sort((a, b) => b.score - a.score + (Math.random() - 0.5));
+      const chosen = allMoves[0];
+      executeMove(chosen.fromR, chosen.fromC, chosen.toR, chosen.toC);
+      renderBoard();
+      updateStatus("White's Turn");
+    }
+
+    function updateStatus(text) {
+      document.getElementById('status').innerText = text;
+    }
+
+    initGame();
+  </script>
+</body>
+</html>
