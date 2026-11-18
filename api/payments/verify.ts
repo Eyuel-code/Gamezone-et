@@ -1,4 +1,4 @@
-import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../../server/vercelHttp';
+import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../_lib/vercelHttp.js';
 
 function formatEATDate(date = new Date()): string {
   return `${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} EAT`;

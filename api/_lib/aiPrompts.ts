@@ -154,16 +154,35 @@ CURRENT PLAYER WELLNESS SNAPSHOT:
 - Weekly Tournament Slot Used: ${weeklyTourneyUsed ? 'Yes (1/1 this Mon–Sun week — resting until Monday reset)' : '0/1 used this week'}`;
 }
 
+export function resolveGeminiApiKey(): string {
+  const raw = (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY)?.trim() || '';
+  return raw.replace(/^["']|["']$/g, '').trim();
+}
+
 export function extractGeminiError(
   err: any,
   fallbackMessage: string
 ): { status: number; message: string } {
-  const rawStatus = typeof err?.status === 'number' ? err.status : 500;
-  const status = rawStatus >= 400 && rawStatus < 600 ? rawStatus : 500;
-  let message = err instanceof Error && err.message ? err.message.trim() : fallbackMessage;
-  if (message.startsWith('{')) {
+  const numericStatus =
+    typeof err?.status === 'number'
+      ? err.status
+      : typeof err?.statusCode === 'number'
+        ? err.statusCode
+        : typeof err?.cause?.status === 'number'
+          ? err.cause.status
+          : 500;
+  const status = numericStatus >= 400 && numericStatus < 600 ? numericStatus : 500;
+  const rawMessage =
+    err instanceof Error && err.message
+      ? err.message.trim()
+      : typeof err?.message === 'string' && err.message.trim()
+        ? err.message.trim()
+        : fallbackMessage;
+
+  const jsonStart = rawMessage.indexOf('{');
+  if (jsonStart !== -1) {
     try {
-      const parsed = JSON.parse(message);
+      const parsed = JSON.parse(rawMessage.slice(jsonStart));
       const innerMsg = parsed?.error?.message || parsed?.message;
       const innerCode = typeof parsed?.error?.code === 'number' ? parsed.error.code : status;
       if (typeof innerMsg === 'string' && innerMsg.trim()) {
@@ -176,7 +195,8 @@ export function extractGeminiError(
       // Keep raw message if not valid JSON
     }
   }
-  return { status, message };
+
+  return { status, message: rawMessage };
 }
 
 export async function generateGeminiReply(params: {
@@ -184,8 +204,17 @@ export async function generateGeminiReply(params: {
   systemInstruction: string;
   messages: CleanedChatMessage[];
 }): Promise<string> {
+  const apiKey = params.apiKey.trim().replace(/^["']|["']$/g, '').trim();
+  if (!apiKey) {
+    const missingErr = new Error(
+      'Gemini API key is missing on the server. Add GEMINI_API_KEY in Vercel Environment Variables.'
+    ) as Error & { status?: number };
+    missingErr.status = 503;
+    throw missingErr;
+  }
+
   const ai = new GoogleGenAI({
-    apiKey: params.apiKey,
+    apiKey,
     httpOptions: { headers: { 'User-Agent': 'aistudio-build' } },
   });
 

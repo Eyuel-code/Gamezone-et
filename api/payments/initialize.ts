@@ -1,4 +1,4 @@
-import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../../server/vercelHttp';
+import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../_lib/vercelHttp.js';
 
 export default function handler(req: ServerlessRequest, res: ServerlessResponse) {
   if (req.method !== 'POST') {

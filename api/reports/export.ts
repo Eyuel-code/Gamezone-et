@@ -1,4 +1,4 @@
-import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../../server/vercelHttp';
+import { parseJsonBody, type ServerlessRequest, type ServerlessResponse } from '../_lib/vercelHttp.js';
 
 function escapeCsvCell(value: unknown): string {
   const str = String(value ?? '');

@@ -10,7 +10,8 @@ import {
   cleanChatMessages,
   extractGeminiError,
   generateGeminiReply,
-} from './server/aiPrompts.ts';
+  resolveGeminiApiKey,
+} from './api/_lib/aiPrompts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -427,7 +428,7 @@ async function startServer() {
 
   // Intelligent AI Support & Interactive Website Navigator (Gemini-powered)
   app.post('/api/assistant/chat', async (req: Request, res: Response) => {
-    const apiKey = (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY)?.trim();
+    const apiKey = resolveGeminiApiKey();
     if (!apiKey) {
       res.status(503).json({
         error:
@@ -470,7 +471,7 @@ async function startServer() {
 
   // Mindful Companion: Empathetic Digital Wellness & Tilt Recovery AI Coach (Separate Gemini Prompt Instance)
   app.post('/api/wellness/chat', async (req: Request, res: Response) => {
-    const apiKey = (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY)?.trim();
+    const apiKey = resolveGeminiApiKey();
     if (!apiKey) {
       res.status(503).json({
         error:

@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { getClientIpFromHeaders, maskIp, type ServerlessRequest, type ServerlessResponse } from '../../server/vercelHttp';
+import { getClientIpFromHeaders, maskIp, type ServerlessRequest, type ServerlessResponse } from '../_lib/vercelHttp.js';
 
 export default function handler(req: ServerlessRequest, res: ServerlessResponse) {
   const ip = getClientIpFromHeaders(req);
