@@ -41,7 +41,7 @@ import { maskEmailAddress, maskPhoneNumber, maskSecretValue, formatShortHash } f
 import { formatEthiopianCity } from '@/utils/location';
 
 const ETHIOPIAN_CITIES = [
-  'Addis Ababa (Finfinnee)',
+  'Addis Ababa',
   'Adama (Nazreth)',
   'Bahir Dar',
   'Hawassa',

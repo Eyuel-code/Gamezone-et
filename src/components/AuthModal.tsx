@@ -32,7 +32,7 @@ export interface GamerProfile {
 }
 
 const ETHIOPIAN_CITIES = [
-  'Addis Ababa (Finfinnee)',
+  'Addis Ababa',
   'Hawassa (Sidama)',
   'Bahir Dar (Amhara)',
   'Dire Dawa',

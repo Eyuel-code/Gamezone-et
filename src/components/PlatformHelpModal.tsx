@@ -175,7 +175,7 @@ export default function PlatformHelpModal({
                   </h3>
                 </div>
                 <span className="rounded-full border border-emerald-400/35 bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-300">
-                  Addis Ababa (Finfinnee) &bull; All Ethiopia
+                  Addis Ababa &bull; All Ethiopia
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">

@@ -113,7 +113,7 @@ export default function EsportsAiAssistant({
       id: 'welcome-msg',
       role: 'assistant',
       content:
-        'Selam! I am your **GameZone ET Website Navigator & AI Assistant** for Addis Ababa (Finfinnee).\n\nAsk me to guide you anywhere on the site:\n- **Tournaments & Profile:** 0 ETB entry (Free Fire, PUBG, EAFC) & unlocking Room IDs/Passwords\n- **Top-Up Store:** Diamonds, UC & FC Points via Telebirr & CBE Birr\n- **In-App Arcade & Wellness:** Browser games, Mindful Companion & daily/weekly limits\n- **Fair Play & Help (`?`):** Passport or Ethiopian National ID verification rules',
+        'Selam! I am your **GameZone ET Website Navigator & AI Assistant** for Addis Ababa.\n\nAsk me to guide you anywhere on the site:\n- **Tournaments & Profile:** 0 ETB entry (Free Fire, PUBG, EAFC) & unlocking Room IDs/Passwords\n- **Top-Up Store:** Diamonds, UC & FC Points via Telebirr & CBE Birr\n- **In-App Arcade & Wellness:** Browser games, Mindful Companion & daily/weekly limits\n- **Fair Play & Help (`?`):** Passport or Ethiopian National ID verification rules',
       timestamp: 'Online',
     },
   ]);

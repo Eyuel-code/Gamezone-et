@@ -130,7 +130,7 @@ async function performHydrateSessionFromFirebaseUser(fbUser: FirebaseUser): Prom
       email: fbUser.email || '',
       fullName: fbUser.displayName?.trim() || safeTag,
       phone,
-      city: 'Addis Ababa (Finfinnee)',
+      city: 'Addis Ababa',
       favoriteGame: 'Free Fire & Battle Royale',
       walletBalance: 0,
       emailVerified: fbUser.emailVerified,

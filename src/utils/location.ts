@@ -1,9 +1,8 @@
-export const DEFAULT_ADDIS_ABABA_CITY = 'Addis Ababa (Finfinnee)';
+export const DEFAULT_ADDIS_ABABA_CITY = 'Addis Ababa';
 
 /**
- * Normalizes Addis Ababa city variants and typos (e.g. "Addis Ababa",
- * "Addis Ababa (finifina)", "Addis Ababa (Finifine)", "finfine") to the
- * canonical localized label "Addis Ababa (Finfinnee)".
+ * Normalizes Addis Ababa city variants (including any bracketed,
+ * parenthetical, sub-city, or legacy spellings) strictly to "Addis Ababa".
  */
 export function formatEthiopianCity(rawCity?: string | null): string {
   const trimmed = String(rawCity || '').trim();
@@ -11,15 +10,9 @@ export function formatEthiopianCity(rawCity?: string | null): string {
 
   const normalized = trimmed.toLowerCase().replace(/\s+/g, ' ');
   if (
-    normalized === 'addis ababa' ||
-    normalized === 'addis ababa, ethiopia' ||
     normalized === 'addis' ||
-    normalized === 'finfinnee' ||
-    normalized === 'finfinne' ||
-    normalized === 'finfine' ||
-    normalized === 'finifina' ||
-    normalized === 'finifine' ||
-    /^addis\s+ababa\s*[\(\/\-,]\s*fin[a-z]*\s*\)?$/i.test(normalized)
+    /^addis\s+ababa\b/i.test(normalized) ||
+    /^finf?i+n+e*a?$/i.test(normalized)
   ) {
     return DEFAULT_ADDIS_ABABA_CITY;
   }
