@@ -120,7 +120,7 @@ export default function SupportPage({ currentUser, onOpenAuth, onNotify }: Suppo
             {/* Submit Support Ticket / Report */}
             <div ref={formSectionRef} id="ticket-form">
               <Reveal>
-                <div className="glass-strong rounded-2xl border border-white/10 p-7">
+                <div className="glass-strong rounded-2xl border border-white/10 p-5 sm:p-7">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <h2 className="font-display text-2xl font-bold text-white">Submit a Ticket or Report</h2>
@@ -148,11 +148,11 @@ export default function SupportPage({ currentUser, onOpenAuth, onNotify }: Suppo
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                      <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 flex items-center justify-between text-xs">
+                      <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
                         <span className="text-slate-400">
                           Reporting as <strong className="text-white">{currentUser.gamerTag}</strong>
                         </span>
-                        <span className="font-mono text-slate-400 truncate max-w-[200px]">
+                        <span className="font-mono text-slate-400 truncate max-w-full sm:max-w-[200px]">
                           {currentUser.email}
                         </span>
                       </div>
@@ -251,7 +251,7 @@ export default function SupportPage({ currentUser, onOpenAuth, onNotify }: Suppo
 
             {/* Contact card */}
             <Reveal delay={120}>
-              <div className="glass-strong h-full rounded-2xl p-7">
+              <div className="glass-strong h-full rounded-2xl p-5 sm:p-7">
                 <h3 className="font-display text-xl font-bold text-white">Get in touch</h3>
                 <p className="mt-2 text-sm text-slate-400">Reach us through any of these channels.</p>
 
@@ -295,7 +295,7 @@ export default function SupportPage({ currentUser, onOpenAuth, onNotify }: Suppo
           {currentUser && (
             <div className="mt-12">
               <Reveal>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                   <h2 className="font-display text-2xl font-bold text-white">My Submitted Tickets &amp; Reports</h2>
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-mono text-slate-300">
                     {myTickets.length} total
@@ -313,7 +313,7 @@ export default function SupportPage({ currentUser, onOpenAuth, onNotify }: Suppo
                         key={t.id}
                         className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 space-y-2.5"
                       >
-                        <div className="flex items-center justify-between gap-2">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
                           <span className="font-mono text-xs text-primary-300 font-bold">{t.id}</span>
                           <div className="flex items-center gap-2">
                             <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-300">

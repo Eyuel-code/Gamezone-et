@@ -320,7 +320,7 @@ export default function ProfilePage({
         )}
 
         {/* Profile Card Header */}
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-r from-ink-950 via-ink-900 to-ink-950 p-6 sm:p-8 shadow-card mb-8">
+        <div className="rounded-3xl border border-white/10 bg-gradient-to-r from-ink-950 via-ink-900 to-ink-950 p-4 sm:p-8 shadow-card mb-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="relative group flex flex-col items-center">
               <div className="relative">
@@ -344,7 +344,7 @@ export default function ProfilePage({
               </button>
             </div>
 
-            <div className="flex-1 text-center sm:text-left space-y-2">
+            <div className="flex-1 min-w-0 text-center sm:text-left space-y-2">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                 <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
                   {currentUser.gamerTag}
@@ -390,8 +390,8 @@ export default function ProfilePage({
               </div>
 
               {/* Ranked Tier Progress Bar */}
-              <div className="pt-2 max-w-md">
-                <div className="flex items-center justify-between text-xs mb-1 font-mono">
+              <div className="pt-2 max-w-md mx-auto sm:mx-0">
+                <div className="flex flex-wrap items-center justify-between gap-1 text-xs mb-1 font-mono">
                   <span className="text-gold-300 font-bold">{userRP.toLocaleString()} Ranked Points (RP)</span>
                   <span className="text-slate-400">
                     {rankInfo.nextTier ? `${rankInfo.rpToNext} RP to ${rankInfo.nextTier.tier}` : 'Top Tier Reached'}
@@ -437,7 +437,7 @@ export default function ProfilePage({
 
           {showHeaderAvatarEditor && (
             <div className="mt-6 pt-5 border-t border-white/10">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <p className="text-xs font-bold text-white">
                   Upload from your device or choose a built-in website avatar (saves immediately)
                 </p>
@@ -634,7 +634,7 @@ export default function ProfilePage({
                 ) : (
                   <div className="space-y-2">
                     {orders.slice(0, 3).map((o) => (
-                      <div key={o.id} className="p-3 rounded-xl bg-ink-950 border border-white/5 text-xs flex items-center justify-between">
+                      <div key={o.id} className="p-3 rounded-xl bg-ink-950 border border-white/5 text-xs flex flex-wrap items-center justify-between gap-2">
                         <div>
                           <span className="font-bold text-white">{o.gameName} — {o.productName}</span>
                           <span className="text-slate-500 block text-[11px] font-mono">Ref: {o.receiptRef}</span>
@@ -651,7 +651,7 @@ export default function ProfilePage({
             </div>
 
             {/* Identity Verification & Anti-Smurf Hardware Security Card */}
-            <div className="card-spotlight rounded-2xl border border-primary-400/25 bg-gradient-to-br from-ink-950/90 via-primary-500/[0.06] to-emerald-500/[0.05] p-6 space-y-4">
+            <div className="card-spotlight rounded-2xl border border-primary-400/25 bg-gradient-to-br from-ink-950/90 via-primary-500/[0.06] to-emerald-500/[0.05] p-4 sm:p-6 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
                 <div className="flex items-center gap-3">
                   <span
@@ -771,9 +771,9 @@ export default function ProfilePage({
           <div id="profile-panel-account" role="tabpanel" aria-labelledby="profile-tab-account" className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <form
               onSubmit={handleSaveMandatoryProfile}
-              className="lg:col-span-2 rounded-2xl border border-white/10 bg-white/[0.03] p-6 space-y-4"
+              className="lg:col-span-2 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-6 space-y-4"
             >
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
                 <div>
                   <h2 className="font-display text-lg font-bold text-white flex items-center gap-2">
                     <ShieldCheck className="h-5 w-5 text-primary-400" aria-hidden="true" />
@@ -899,7 +899,7 @@ export default function ProfilePage({
                   <span id="profile-default-pay-label" className="block font-semibold text-slate-300 mb-1">
                     Default Payment Channel
                   </span>
-                  <div className="grid grid-cols-3 gap-2" role="group" aria-labelledby="profile-default-pay-label">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-labelledby="profile-default-pay-label">
                     <button
                       type="button"
                       aria-pressed={preferredPay === 'telebirr'}

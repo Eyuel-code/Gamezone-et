@@ -654,7 +654,7 @@ export default function DashboardPage({
                   <div
                     role="region"
                     aria-label="Notifications list"
-                    className="absolute right-0 top-full mt-2 w-80 glass-strong rounded-2xl shadow-2xl z-50 p-3 space-y-2"
+                    className="fixed inset-x-3 top-20 sm:inset-x-auto sm:top-auto sm:absolute sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-80 max-h-[calc(100vh-5.5rem)] overflow-y-auto glass-strong rounded-2xl shadow-2xl z-50 p-3 space-y-2"
                   >
                     <div className="flex items-center justify-between pb-2 border-b border-white/10">
                       <span className="text-xs font-bold text-white">Notifications</span>
@@ -727,7 +727,7 @@ export default function DashboardPage({
             <AmbientAnimationBackground variant="hero" />
 
             <div className="relative z-10 w-full grid lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-4 hero-text-scrim rounded-2xl p-2 sm:p-3 -m-2 sm:-m-3">
+              <div className="lg:col-span-8 min-w-0 space-y-4 hero-text-scrim rounded-2xl p-2 sm:p-3">
                 
                 {/* Clean Unboxed Kicker Metadata */}
                 <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide drop-shadow-[0_1px_8px_rgba(2,6,23,0.95)]">
@@ -886,7 +886,7 @@ export default function DashboardPage({
               </div>
 
               {/* Transparent Tournament Visual Info Box */}
-              <div className="lg:col-span-4 relative flex justify-center">
+              <div className="lg:col-span-4 min-w-0 relative flex justify-center">
                 {(() => {
                   const heroGate = db.isRoomUnlockedForUser(
                     featuredTournament,
@@ -998,7 +998,7 @@ export default function DashboardPage({
         <aside
           aria-label="Community and live activity"
           className={`
-            fixed inset-y-0 right-0 z-40 w-80 glass-sidebar border-l border-white/10 p-5 flex flex-col justify-between pt-20 transition-transform duration-300 xl:static xl:translate-x-0 xl:pt-6
+            fixed inset-y-0 right-0 z-40 w-80 max-w-[calc(100vw-2rem)] sm:max-w-none glass-sidebar border-l border-white/10 p-5 flex flex-col justify-between pt-20 transition-transform duration-300 xl:static xl:translate-x-0 xl:pt-6
             ${communityPanelOpen ? 'translate-x-0' : 'translate-x-full xl:translate-x-0'}
           `}
         >
@@ -1154,7 +1154,7 @@ export default function DashboardPage({
         {/* FULL-WIDTH SECTION 1: POPULAR MOBILE GAME TOP-UPS                         */}
         {/* ========================================================================= */}
         <Reveal as="section" className="w-full py-12 lg:py-14 space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-bold text-white font-display flex items-center gap-2">
                   <Zap className="w-5 h-5 text-amber-400" />

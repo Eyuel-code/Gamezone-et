@@ -197,9 +197,9 @@ export default function NewsPage() {
               aria-modal="true"
               aria-labelledby="news-article-modal-title"
               tabIndex={-1}
-              className="relative z-10 w-full max-w-2xl rounded-2xl border border-white/15 bg-ink-900 shadow-2xl overflow-hidden my-6 focus:outline-none"
+              className="relative z-10 w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl border border-white/15 bg-ink-900 shadow-2xl overflow-hidden my-auto focus:outline-none"
             >
-              <div className="relative h-56 sm:h-72 w-full">
+              <div className="relative shrink-0 h-44 sm:h-64 w-full">
                 <ResilientImage src={activeArticle.image} alt={activeArticle.title} fallbackLabel={activeArticle.category} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent" aria-hidden="true" />
                 <button
@@ -209,21 +209,21 @@ export default function NewsPage() {
                     setActiveArticle(null);
                   }}
                   aria-label="Close article modal"
-                  className="absolute top-4 right-4 grid h-8 w-8 place-items-center rounded-full bg-ink-950/80 text-white hover:bg-white/20 cursor-pointer"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 grid h-8 w-8 place-items-center rounded-full bg-ink-950/80 text-white hover:bg-white/20 cursor-pointer"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
-                <div className="absolute bottom-4 left-6 right-6">
+                <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-6 sm:right-6">
                   <span className="rounded-full bg-primary-500 px-2.5 py-0.5 text-[10px] font-bold text-ink-950 uppercase tracking-wider">
                     {activeArticle.category}
                   </span>
-                  <h2 id="news-article-modal-title" className="font-display text-xl sm:text-2xl font-bold text-white mt-1.5">
+                  <h2 id="news-article-modal-title" className="font-display text-lg sm:text-2xl font-bold text-white mt-1.5 line-clamp-2">
                     {activeArticle.title}
                   </h2>
                 </div>
               </div>
 
-              <div className="p-6 max-h-[50vh] overflow-y-auto space-y-4">
+              <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-4">
                 <div className="flex items-center justify-between text-xs text-slate-400 border-b border-white/10 pb-3">
                   <span>Published: {activeArticle.publishedAt}</span>
                   <span>Source: <strong className="text-slate-200">{activeArticle.source}</strong></span>

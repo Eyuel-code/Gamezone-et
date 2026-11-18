@@ -384,18 +384,18 @@ export default function CheckoutModal({
         aria-modal="true"
         aria-labelledby="checkout-modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-xl rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-6 focus:outline-none"
+        className="relative z-10 w-full max-w-xl max-h-[90vh] flex flex-col rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-auto focus:outline-none"
       >
         {/* Top Checkout Header */}
-        <div className="bg-gradient-to-r from-primary-500/20 via-primary-500/10 to-accent-500/20 border-b border-white/10 px-4 py-2.5 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="shrink-0 bg-gradient-to-r from-primary-500/20 via-primary-500/10 to-accent-500/20 border-b border-white/10 px-4 py-2.5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <span
               id="checkout-modal-title"
-              className="rounded-full bg-primary-500 px-2.5 py-0.5 text-[10px] font-bold text-ink-950 uppercase tracking-wider"
+              className="shrink-0 rounded-full bg-primary-500 px-2.5 py-0.5 text-[10px] font-bold text-ink-950 uppercase tracking-wider"
             >
               GameZoneET Checkout
             </span>
-            <span className="text-xs font-medium text-slate-200">
+            <span className="text-xs font-medium text-slate-200 truncate">
               Telebirr, CBE Birr &amp; Wallet • Instant Delivery
             </span>
           </div>
@@ -403,14 +403,14 @@ export default function CheckoutModal({
             type="button"
             onClick={onClose}
             aria-label="Close checkout modal"
-            className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="shrink-0 grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
 
         {/* 6-Step Visual Breadcrumbs */}
-        <nav aria-label="Checkout progress" className="bg-ink-950/60 px-4 py-3 border-b border-white/5">
+        <nav aria-label="Checkout progress" className="shrink-0 bg-ink-950/60 px-4 py-3 border-b border-white/5">
           <ol className="flex items-center justify-between text-xs">
             {[
               { num: 1, label: 'Game' },
@@ -453,7 +453,7 @@ export default function CheckoutModal({
         </nav>
 
         {/* Modal Body */}
-        <div className="p-5 max-h-[75vh] overflow-y-auto">
+        <div className="p-4 sm:p-5 flex-1 min-h-0 overflow-y-auto">
           {/* STEP 1: SELECT GAME */}
           {step === 1 && (
             <div className="space-y-4">

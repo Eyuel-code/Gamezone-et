@@ -255,7 +255,7 @@ export default function Footer({ onNavigate, onNotify }: FooterProps) {
 
       {/* Legal Policy Modal */}
       {legalTopic && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-md" onClick={() => setLegalTopic(null)} aria-hidden="true" />
           <div
             ref={legalModalRef}
@@ -263,7 +263,7 @@ export default function Footer({ onNavigate, onNotify }: FooterProps) {
             aria-modal="true"
             aria-labelledby="legal-modal-title"
             tabIndex={-1}
-            className="relative z-10 w-full max-w-lg rounded-2xl border border-white/15 bg-ink-900 p-6 shadow-2xl space-y-4 focus:outline-none"
+            className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 p-5 sm:p-6 shadow-2xl space-y-4 focus:outline-none"
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <h2 id="legal-modal-title" className="font-display text-lg font-bold text-white">

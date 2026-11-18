@@ -2038,7 +2038,7 @@ export default function AdminPage({
 
       {/* Edit Product Price Modal */}
       {editingProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div
             className="fixed inset-0 bg-ink-950/80 backdrop-blur-md"
             aria-hidden="true"
@@ -2048,7 +2048,7 @@ export default function AdminPage({
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-edit-price-title"
-            className="relative z-10 w-full max-w-sm rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-6 space-y-4"
+            className="relative z-10 w-full max-w-sm max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-4 sm:p-6 space-y-4"
           >
             <h3 id="admin-edit-price-title" className="font-display font-bold text-white text-base">
               Update Price — {editingProduct.name}
@@ -2098,7 +2098,7 @@ export default function AdminPage({
 
       {/* New Product Modal */}
       {newProductModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div
             className="fixed inset-0 bg-ink-950/80 backdrop-blur-md"
             aria-hidden="true"
@@ -2108,7 +2108,7 @@ export default function AdminPage({
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-new-product-title"
-            className="relative z-10 w-full max-w-md rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-6 space-y-4"
+            className="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-4 sm:p-6 space-y-4"
           >
             <h3 id="admin-new-product-title" className="font-display font-bold text-white text-base">Add New Top-Up Package</h3>
             <form
@@ -2235,7 +2235,7 @@ export default function AdminPage({
 
       {/* New News Article Modal */}
       {newArticleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div
             className="fixed inset-0 bg-ink-950/80 backdrop-blur-md"
             aria-hidden="true"
@@ -2245,7 +2245,7 @@ export default function AdminPage({
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-new-article-title"
-            className="relative z-10 w-full max-w-md rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-6 space-y-4"
+            className="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-4 sm:p-6 space-y-4"
           >
             <h3 id="admin-new-article-title" className="font-display font-bold text-white text-base">Publish News Article</h3>
             <form
@@ -2329,7 +2329,7 @@ export default function AdminPage({
 
       {/* New Free Tournament Modal */}
       {newTournamentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div
             className="fixed inset-0 bg-ink-950/80 backdrop-blur-md"
             aria-hidden="true"
@@ -2339,7 +2339,7 @@ export default function AdminPage({
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-new-tourney-title"
-            className="relative z-10 w-full max-w-lg rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-6 space-y-4 my-6"
+            className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-4 sm:p-6 space-y-4"
           >
             <h3 id="admin-new-tourney-title" className="font-display font-bold text-white text-base flex items-center gap-2">
               <Trophy className="h-4 w-4 text-gold-400" aria-hidden="true" /> Create Free Esports Tournament

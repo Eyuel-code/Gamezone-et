@@ -239,8 +239,8 @@ function GameShowcase({ game }: { game: Game }) {
           </div>
 
           {/* 3D showcase + what you can buy */}
-          <div className="grid gap-6 p-6 lg:grid-cols-2 lg:p-8">
-            <div className="glass relative min-h-[340px] overflow-hidden rounded-2xl">
+          <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-2 lg:p-8">
+            <div className="glass relative min-w-0 min-h-[280px] sm:min-h-[340px] overflow-hidden rounded-2xl">
               <div className="absolute left-4 top-4 z-10">
                 <span className="chip" style={{ borderColor: `${game.accent}40`, color: game.accent }}>
                   <TopIcon className="h-3.5 w-3.5" aria-hidden="true" /> {game.topUpLabel}
@@ -248,7 +248,7 @@ function GameShowcase({ game }: { game: Game }) {
               </div>
               <ItemShowcase3D game={game} />
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className="font-display text-lg font-bold text-white">About {game.name}</h3>
               <p className="mt-2 text-sm text-slate-400">{game.description}</p>
               <h4 className="mt-5 font-display text-sm font-bold uppercase tracking-wider text-slate-300">What you can buy</h4>
@@ -372,8 +372,8 @@ function PackageGrid({
 }) {
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-slate-400">
-        <Info className="h-3.5 w-3.5 text-primary-400" />
+      <div className="mb-4 flex items-start sm:items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-slate-400">
+        <Info className="h-3.5 w-3.5 text-primary-400 shrink-0 mt-0.5 sm:mt-0" />
         Select your package. You will enter your Player ID and choose Telebirr or CBE Birr in the checkout step.
       </div>
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -443,7 +443,7 @@ function PackageCard({
           </p>
         )}
       </div>
-      <div className="mt-4 flex items-end justify-between" style={{ transform: 'translateZ(15px)' }}>
+      <div className="mt-4 flex flex-wrap items-end justify-between gap-2" style={{ transform: 'translateZ(15px)' }}>
         <span className="font-mono text-lg font-bold text-white">{formatETB(pkg.priceETB)}</span>
         <button
           type="button"
@@ -560,8 +560,8 @@ function PassList({
           </div>
         </div>
       ))}
-      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-xs text-slate-400">
-        <ShieldCheck className="h-4 w-4 text-success-400" aria-hidden="true" />
+      <div className="flex items-start sm:items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-xs text-slate-400">
+        <ShieldCheck className="h-4 w-4 text-success-400 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" />
         All passes are applied to your in-game account within minutes of payment.
       </div>
     </div>
@@ -577,8 +577,8 @@ function CrateGrid({
 }) {
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-slate-400">
-        <Gift className="h-3.5 w-3.5 text-gold-400" />
+      <div className="mb-4 flex items-start sm:items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-slate-400">
+        <Gift className="h-3.5 w-3.5 text-gold-400 shrink-0 mt-0.5 sm:mt-0" />
         Crates contain in-game skins and cosmetic drops. Rarity determines drop chances.
       </div>
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

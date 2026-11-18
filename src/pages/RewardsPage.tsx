@@ -103,10 +103,10 @@ function RewardCard({ icon: Icon, name, cost, desc, affordable, onRedeem }: { ic
   return (
     <div ref={ref} onPointerMove={onMove} onPointerLeave={onLeave} className="preserve-3d group h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-gold-400/30">
       <div className="flex items-center gap-3" style={{ transform: 'translateZ(20px)' }}>
-        <span className="grid h-12 w-12 place-items-center rounded-xl bg-gold-400/15 text-gold-300" aria-hidden="true"><Icon className="h-6 w-6" /></span>
-        <div><h3 className="font-display text-base font-bold text-white">{name}</h3><p className="text-xs text-slate-400">{desc}</p></div>
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gold-400/15 text-gold-300" aria-hidden="true"><Icon className="h-6 w-6" /></span>
+        <div className="min-w-0"><h3 className="font-display text-base font-bold text-white">{name}</h3><p className="text-xs text-slate-400">{desc}</p></div>
       </div>
-      <div className="mt-5 flex items-center justify-between" style={{ transform: 'translateZ(15px)' }}>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-2" style={{ transform: 'translateZ(15px)' }}>
         <span className="flex items-center gap-1.5 font-mono text-sm font-bold text-gold-300"><Coins className="h-4 w-4" aria-hidden="true" /> {cost.toLocaleString()} pts</span>
         <button type="button" onClick={onRedeem} disabled={!affordable} className={`rounded-lg px-3 py-2 text-sm font-semibold transition-all ${affordable ? 'bg-gold-400 text-ink-950 hover:scale-105 cursor-pointer' : 'cursor-not-allowed border border-white/10 bg-white/5 text-slate-400'}`}>{affordable ? 'Redeem' : 'Not enough'}</button>
       </div>

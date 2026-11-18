@@ -248,14 +248,14 @@ export default function TournamentRegisterModal({
         aria-modal="true"
         aria-labelledby="tourney-reg-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-lg rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-6 focus:outline-none"
+        className="relative z-10 w-full max-w-lg max-h-[90vh] flex flex-col rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-auto focus:outline-none"
       >
-        <div className="flex items-center justify-between border-b border-white/10 p-5 bg-gradient-to-r from-primary-500/10 via-transparent to-accent-500/10">
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-primary-400">
+        <div className="shrink-0 flex items-center justify-between gap-3 border-b border-white/10 p-4 sm:p-5 bg-gradient-to-r from-primary-500/10 via-transparent to-accent-500/10">
+          <div className="min-w-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-primary-400 block">
               {confirmedReg ? 'Official Slot Pass Issued' : 'Free Competition Registration'}
             </span>
-            <h3 id="tourney-reg-title" className="font-display text-lg font-bold text-white">
+            <h3 id="tourney-reg-title" className="font-display text-base sm:text-lg font-bold text-white truncate">
               {tournament.title}
             </h3>
           </div>
@@ -263,14 +263,14 @@ export default function TournamentRegisterModal({
             type="button"
             onClick={onClose}
             aria-label="Close tournament registration modal"
-            className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
+            className="shrink-0 grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
         {confirmedReg ? (
-          <div className="p-6 space-y-5">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-5">
             <div className="rounded-2xl border border-emerald-400/40 bg-gradient-to-br from-emerald-500/15 via-primary-500/10 to-ink-950 p-5 text-center space-y-3">
               <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
                 <Trophy className="h-6 w-6" />
@@ -355,7 +355,7 @@ export default function TournamentRegisterModal({
             </div>
           </div>
         ) : (
-          <form onSubmit={(e) => void handleRegister(e)} className="p-5 space-y-4">
+          <form onSubmit={(e) => void handleRegister(e)} className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 space-y-4">
             <div className="rounded-xl border border-success-500/30 bg-success-500/10 p-3 flex items-center gap-2.5 text-xs text-success-300">
               <ShieldCheck className="h-4 w-4 shrink-0 text-success-400" aria-hidden="true" />
               <span>100% Free Entry • No credit card, no wagering • {tournament.registeredCount}/{tournament.capacity} slots filled.</span>
@@ -534,7 +534,7 @@ export default function TournamentRegisterModal({
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                     <span className="text-xs font-semibold text-slate-300">
                       Squadmate Player IDs (Optional, up to 3)
                     </span>
@@ -600,7 +600,7 @@ export default function TournamentRegisterModal({
               </p>
             </div>
 
-            <div className="pt-2 flex items-center justify-between">
+            <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={onClose}

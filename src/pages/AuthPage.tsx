@@ -274,10 +274,10 @@ export default function AuthPage({
   const previewAvatar = mode === 'signup' ? selectedAvatarUrl : currentUser?.avatar || DEFAULT_AVATAR_URL;
 
   return (
-    <div className="relative min-h-screen pt-24 pb-16 flex items-center">
+    <div className="relative min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 lg:flex lg:items-center">
       <div className="container-x w-full max-w-6xl">
         {/* Back button */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
           <button
             onClick={() => onNavigate('home')}
             className="group inline-flex items-center gap-2 rounded-xl glass px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:border-primary-400/40 transition-all cursor-pointer"
@@ -291,9 +291,9 @@ export default function AuthPage({
           </span>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-12 items-stretch">
+        <div className="grid gap-6 lg:gap-8 lg:grid-cols-12 items-stretch">
           {/* LEFT SHOWCASE COLUMN */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+          <div className="lg:col-span-5 min-w-0 flex flex-col justify-between gap-6">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary-400/35 bg-primary-400/10 px-4 py-1.5 text-xs font-bold text-primary-200">
                 <Sparkles className="h-3.5 w-3.5 text-primary-400" />
@@ -392,23 +392,23 @@ export default function AuthPage({
           </div>
 
           {/* RIGHT INTERACTIVE AUTH CARD */}
-          <div className="lg:col-span-7">
-            <div className="glass-strong card-spotlight rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl h-full flex flex-col justify-between">
+          <div className="lg:col-span-7 min-w-0">
+            <div className="glass-strong card-spotlight rounded-3xl border border-white/15 p-4 sm:p-8 shadow-2xl h-full flex flex-col justify-between min-w-0">
               {currentUser ? (
                 /* SIGNED-IN ACCOUNT & VERIFICATION PANEL */
                 <div className="space-y-6 my-auto">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
                     <UserAvatar
                       src={currentUser.avatar}
                       name={currentUser.gamerTag}
                       size="lg"
-                      className="ring-2 ring-primary-400"
+                      className="ring-2 ring-primary-400 shrink-0"
                     />
-                    <div>
-                      <h2 className="font-display text-2xl font-extrabold text-white">
+                    <div className="min-w-0 flex-1">
+                      <h2 className="font-display text-xl sm:text-2xl font-extrabold text-white truncate">
                         {currentUser.gamerTag}
                       </h2>
-                      <p className="text-xs text-slate-400">{currentUser.email}</p>
+                      <p className="text-xs text-slate-400 truncate">{currentUser.email}</p>
                     </div>
                   </div>
 
@@ -517,14 +517,14 @@ export default function AuthPage({
                           setErrorMsg('');
                           setInfoMsg('');
                         }}
-                        className={`flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold transition-all duration-300 cursor-pointer ${
+                        className={`flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-2 py-2.5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                           mode === 'signin'
                             ? 'bg-gradient-to-r from-primary-400 to-cyan-400 text-ink-950 shadow-glow'
                             : 'text-slate-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <LogIn className="h-4 w-4" aria-hidden="true" />
-                        Sign In
+                        <LogIn className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        <span>Sign In</span>
                       </button>
                       <button
                         type="button"
@@ -535,18 +535,18 @@ export default function AuthPage({
                           setErrorMsg('');
                           setInfoMsg('');
                         }}
-                        className={`flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold transition-all duration-300 cursor-pointer ${
+                        className={`flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-2 py-2.5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                           mode === 'signup'
                             ? 'bg-gradient-to-r from-accent-500 to-amber-500 text-white shadow-glow-accent'
                             : 'text-slate-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        <UserPlus className="h-4 w-4" aria-hidden="true" />
-                        Create Account
+                        <UserPlus className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        <span className="truncate">Create Account</span>
                       </button>
                     </div>
                   ) : (
-                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
                       <div className="flex items-center gap-2">
                         <KeyRound className="h-5 w-5 text-primary-400" aria-hidden="true" />
                         <h2 className="font-display text-lg font-bold text-white">Reset Password</h2>
@@ -609,7 +609,7 @@ export default function AuthPage({
                       </div>
 
                       <div>
-                        <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                           <label htmlFor="auth-page-signin-password" className="text-xs font-bold uppercase tracking-wider text-slate-300">
                             Password
                           </label>
@@ -763,8 +763,8 @@ export default function AuthPage({
                           <label htmlFor="auth-page-signup-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
                             Mobile Phone *
                           </label>
-                          <div className="flex">
-                            <span className="inline-flex items-center gap-1 rounded-l-xl border border-r-0 border-white/15 bg-white/10 px-2.5 text-xs font-semibold text-slate-300">
+                          <div className="flex min-w-0">
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-l-xl border border-r-0 border-white/15 bg-white/10 px-2.5 text-xs font-semibold text-slate-300">
                               <Phone className="h-3 w-3 text-primary-400" aria-hidden="true" /> +251
                             </span>
                             <input
@@ -773,7 +773,7 @@ export default function AuthPage({
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
                               placeholder="911234567"
-                              className="w-full rounded-r-xl border border-white/15 bg-white/[0.04] py-2.5 px-3 text-sm text-white placeholder-slate-500 transition-all hover:border-white/30 focus:border-primary-400 focus:outline-none"
+                              className="flex-1 min-w-0 w-full rounded-r-xl border border-white/15 bg-white/[0.04] py-2.5 px-3 text-sm text-white placeholder-slate-500 transition-all hover:border-white/30 focus:border-primary-400 focus:outline-none"
                               required
                             />
                           </div>

@@ -164,13 +164,13 @@ export default function Navbar({
           type="button"
           onClick={() => go('home')}
           aria-label="GameZoneET Home"
-          className="no-heat flex items-center gap-2.5 shrink-0 cursor-pointer text-left"
+          className="no-heat flex items-center gap-2 sm:gap-2.5 min-w-0 shrink-0 cursor-pointer text-left"
         >
-          <span className="relative grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary-400 via-violet-500 to-accent-500 text-white">
+          <span className="relative grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary-400 via-violet-500 to-accent-500 text-white">
             <Gamepad2 className="h-5 w-5" aria-hidden="true" />
           </span>
-          <div>
-            <span className="font-display text-lg sm:text-xl font-extrabold tracking-tight text-white block leading-tight">
+          <div className="min-w-0">
+            <span className="font-display text-base sm:text-xl font-extrabold tracking-tight text-white block leading-tight">
               GameZone<span className="text-primary-400">ET</span>
             </span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-primary-300/80 block -mt-0.5">
@@ -257,7 +257,7 @@ export default function Navbar({
         </ul>
 
         {/* Right Action Cluster */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {/* Loyalty XP Points Pill */}
           <button
             type="button"
@@ -304,7 +304,7 @@ export default function Navbar({
               <div
                 role="dialog"
                 aria-label="Accessibility Settings"
-                className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl border border-[#00f0ff]/45 bg-[#0c1024]/95 backdrop-blur-2xl p-3.5 shadow-2xl z-50 text-xs animate-scale-in"
+                className="fixed inset-x-3 top-20 sm:inset-x-auto sm:top-auto sm:absolute sm:right-0 sm:mt-2 w-auto sm:w-80 max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-2xl border border-[#00f0ff]/45 bg-[#0c1024]/95 backdrop-blur-2xl p-3.5 shadow-2xl z-50 text-xs animate-scale-in"
               >
                 <AccessibilityControls />
               </div>
@@ -345,7 +345,7 @@ export default function Navbar({
               <div
                 role="dialog"
                 aria-label="Notifications panel"
-                className="absolute right-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-white/15 bg-ink-950/95 backdrop-blur-2xl p-3 shadow-2xl z-50 text-xs animate-scale-in"
+                className="fixed inset-x-3 top-20 sm:inset-x-auto sm:top-auto sm:absolute sm:right-0 sm:mt-2 w-auto sm:w-96 max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-2xl border border-white/15 bg-ink-950/95 backdrop-blur-2xl p-3 shadow-2xl z-50 text-xs animate-scale-in"
               >
                 <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-2">
                   <div className="flex items-center gap-2">
@@ -486,7 +486,7 @@ export default function Navbar({
                 <div
                   role="menu"
                   aria-label="User account and accessibility menu"
-                  className="absolute right-0 mt-2 w-72 rounded-2xl border border-white/10 bg-ink-950/95 backdrop-blur-2xl p-2.5 shadow-2xl z-50 text-xs animate-scale-in max-h-[82vh] overflow-y-auto"
+                  className="fixed inset-x-3 top-20 sm:inset-x-auto sm:top-auto sm:absolute sm:right-0 sm:mt-2 w-auto sm:w-72 rounded-2xl border border-white/10 bg-ink-950/95 backdrop-blur-2xl p-2.5 shadow-2xl z-50 text-xs animate-scale-in max-h-[calc(100vh-5.5rem)] overflow-y-auto"
                 >
                   <div className="p-2.5 border-b border-white/10 mb-1.5">
                     <span className="font-bold text-white block text-sm">{currentUser.gamerTag}</span>
@@ -560,17 +560,17 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => onOpenAuth('signin')}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold text-slate-200 hover:text-white hover:border-primary-400/50 hover:bg-white/10 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs font-bold text-slate-200 hover:text-white hover:border-primary-400/50 hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap"
               >
-                <LogIn className="h-3.5 w-3.5 text-primary-400" aria-hidden="true" />
+                <LogIn className="h-3.5 w-3.5 text-primary-400 shrink-0" aria-hidden="true" />
                 <span>Sign In</span>
               </button>
               <button
                 type="button"
                 onClick={() => onOpenAuth('signup')}
-                className="btn-glow-gold group relative inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 sm:px-4 py-2 text-xs font-extrabold text-white cursor-pointer"
+                className="btn-glow-gold group relative hidden sm:inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 sm:px-4 py-2 text-xs font-extrabold text-white cursor-pointer whitespace-nowrap"
               >
-                <UserPlus className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                <UserPlus className="h-3.5 w-3.5 text-white shrink-0" aria-hidden="true" />
                 <span className="tracking-tight uppercase">Sign Up</span>
               </button>
             </div>
@@ -582,7 +582,7 @@ export default function Navbar({
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-controls="mobile-nav-drawer"
-            className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-slate-200 xl:hidden cursor-pointer hover:border-white/30"
+            className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-slate-200 xl:hidden cursor-pointer hover:border-white/30 shrink-0"
             aria-label="Toggle Navigation Menu"
           >
             {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
@@ -593,8 +593,8 @@ export default function Navbar({
       {/* Mobile Drawer */}
       <div
         id="mobile-nav-drawer"
-        className={`overflow-hidden transition-all duration-300 xl:hidden ${
-          open ? 'max-h-[42rem] border-b border-white/10 bg-ink-950/95 backdrop-blur-2xl' : 'max-h-0'
+        className={`transition-all duration-300 xl:hidden ${
+          open ? 'max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-white/10 bg-ink-950/95 backdrop-blur-2xl' : 'max-h-0 overflow-hidden'
         }`}
       >
         <ul className="container-x space-y-1 pb-6 pt-3">

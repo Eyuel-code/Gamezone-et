@@ -231,88 +231,92 @@ export default function AuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 p-4 backdrop-blur-md animate-fade-up">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-md animate-fade-up">
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-modal-title"
         tabIndex={-1}
-        className="glass-strong relative w-full max-w-xl p-6 sm:p-8 rounded-3xl border border-primary-500/30 shadow-glow my-8 focus:outline-none"
+        className="glass-strong relative flex max-h-[90vh] w-full max-w-md sm:max-w-xl flex-col overflow-hidden rounded-3xl border border-primary-500/30 shadow-glow my-auto focus:outline-none"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close authentication modal"
-          className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-xl border border-white/10 text-slate-400 transition-colors hover:border-white/30 hover:text-white cursor-pointer"
-        >
-          <X className="h-5 w-5" aria-hidden="true" />
-        </button>
+        <div className="relative shrink-0 border-b border-white/10 px-4 py-4 sm:px-8 sm:pt-7 sm:pb-5">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close authentication modal"
+            className="absolute right-3.5 top-3.5 sm:right-4 sm:top-4 grid h-9 w-9 place-items-center rounded-xl border border-white/10 text-slate-400 transition-colors hover:border-white/30 hover:text-white cursor-pointer"
+          >
+            <X className="h-5 w-5" aria-hidden="true" />
+          </button>
 
-        <div className="flex items-center gap-3.5 mb-6">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-primary-400 to-accent-500 text-ink-950 font-bold shadow-glow">
-            <Gamepad2 className="h-6 w-6" aria-hidden="true" />
-          </span>
-          <div>
-            <h2 id="auth-modal-title" className="text-2xl font-bold text-white font-display">
-              {currentUser
-                ? 'Gamer Profile'
-                : mode === 'signin'
-                ? 'Sign In to GameZoneET'
-                : 'Create Gamer Account'}
-            </h2>
-            <p className="text-sm text-slate-400">
-              {currentUser
-                ? 'Synced with Firebase Cloud'
-                : 'Save scores, join tournaments, and track orders in Birr'}
-            </p>
+          <div className="flex items-center gap-3 sm:gap-3.5 pr-10 min-w-0">
+            <span className="grid h-11 w-11 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary-400 to-accent-500 text-ink-950 font-bold shadow-glow">
+              <Gamepad2 className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+            </span>
+            <div className="min-w-0">
+              <h2 id="auth-modal-title" className="text-lg sm:text-2xl font-bold text-white font-display leading-tight">
+                {currentUser
+                  ? 'Gamer Profile'
+                  : mode === 'signin'
+                  ? 'Sign In to GameZoneET'
+                  : 'Create Gamer Account'}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+                {currentUser
+                  ? 'Synced with Firebase Cloud'
+                  : 'Save scores, join tournaments, and track orders in Birr'}
+              </p>
+            </div>
           </div>
         </div>
 
+        <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 sm:pt-6">
+
         {currentUser ? (
           <div className="space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div className="flex items-center gap-4">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
+              <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
                 <UserAvatar
                   src={currentUser.avatar}
                   name={currentUser.gamerTag}
                   size="lg"
-                  className="border border-primary-400/30"
+                  className="border border-primary-400/30 shrink-0"
                 />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-bold text-white">{currentUser.gamerTag}</h3>
-                    <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-xs font-semibold text-emerald-300">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-white truncate">{currentUser.gamerTag}</h3>
+                    <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-xs font-semibold text-emerald-300 shrink-0">
                       Active
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-slate-400 mt-0.5 truncate">
                     {formatEthiopianCity(currentUser.city)} • ID: #{currentUser.id.slice(-6).toUpperCase()}
                   </p>
                 </div>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="rounded-xl bg-black/40 p-3 border border-white/5">
-                  <p className="text-xs text-slate-400">Games Played</p>
+              <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                <div className="rounded-xl bg-black/40 p-3 border border-white/5 min-w-0">
+                  <p className="text-xs text-slate-400 truncate">Games Played</p>
                   <p className="font-display text-lg font-bold text-white mt-1">{currentUser.gamesPlayed}</p>
                 </div>
-                <div className="rounded-xl bg-black/40 p-3 border border-white/5">
-                  <p className="text-xs text-slate-400">Leaderboard Rank</p>
+                <div className="rounded-xl bg-black/40 p-3 border border-white/5 min-w-0">
+                  <p className="text-xs text-slate-400 truncate">Leaderboard Rank</p>
                   <p className="font-display text-lg font-bold text-gold-400 mt-1">#{currentUser.rank}</p>
                 </div>
-                <div className="rounded-xl bg-black/40 p-3 border border-white/5">
-                  <p className="text-xs text-slate-400">Wallet (ETB)</p>
-                  <p className="font-mono text-sm font-bold text-primary-300 mt-1">{formatETB(currentUser.walletBalance || 0)}</p>
+                <div className="rounded-xl bg-black/40 p-3 border border-white/5 min-w-0">
+                  <p className="text-xs text-slate-400 truncate">Wallet (ETB)</p>
+                  <p className="font-mono text-sm font-bold text-primary-300 mt-1 truncate">{formatETB(currentUser.walletBalance || 0)}</p>
                 </div>
-                <div className="rounded-xl bg-black/40 p-3 border border-white/5">
-                  <p className="text-xs text-slate-400">Loyalty XP</p>
+                <div className="rounded-xl bg-black/40 p-3 border border-white/5 min-w-0">
+                  <p className="text-xs text-slate-400 truncate">Loyalty XP</p>
                   <p className="font-mono text-sm font-bold text-gold-300 mt-1">{currentUser.loyaltyPoints.toLocaleString()}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={onClose}
                 className="btn-primary flex-1 py-3 text-base font-bold shadow-glow cursor-pointer"
@@ -455,7 +459,7 @@ export default function AuthModal({
                 </button>
               </form>
             ) : (
-              <form onSubmit={handleSignUpSubmit} className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+              <form onSubmit={handleSignUpSubmit} className="space-y-4">
                 <AvatarPicker
                   value={selectedAvatarUrl}
                   onChange={setSelectedAvatarUrl}
@@ -513,8 +517,8 @@ export default function AuthModal({
                     <label htmlFor="auth-modal-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
                       Ethiopian Phone *
                     </label>
-                    <div className="flex">
-                      <span className="inline-flex items-center rounded-l-xl border border-r-0 border-white/15 bg-white/10 px-2.5 text-xs font-semibold text-slate-300">
+                    <div className="flex min-w-0">
+                      <span className="inline-flex shrink-0 items-center rounded-l-xl border border-r-0 border-white/15 bg-white/10 px-2.5 text-xs font-semibold text-slate-300">
                         +251
                       </span>
                       <input
@@ -523,7 +527,7 @@ export default function AuthModal({
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="911234567"
-                        className="w-full rounded-r-xl border border-white/15 bg-white/5 py-2.5 px-3 text-sm text-white placeholder-slate-500 focus:border-primary-400 focus:outline-none"
+                        className="flex-1 min-w-0 w-full rounded-r-xl border border-white/15 bg-white/5 py-2.5 px-3 text-sm text-white placeholder-slate-500 focus:border-primary-400 focus:outline-none"
                         required
                       />
                     </div>
@@ -618,6 +622,7 @@ export default function AuthModal({
             )}
           </div>
         )}
+        </div>
       </div>
     </div>
   );

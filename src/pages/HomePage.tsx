@@ -45,20 +45,20 @@ export default function HomePage({ onNavigate }: { onNavigate: (p: PageId) => vo
       {/* === HERO === */}
       <section id="home-hero" className="relative overflow-hidden">
 
-        <div className="container-x relative flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16">
-          <div className="grid items-center gap-12 lg:grid-cols-12">
+        <div className="container-x relative flex min-h-[calc(100vh-4rem)] flex-col justify-center py-8 sm:py-12 lg:py-16">
+          <div className="grid items-center gap-8 lg:gap-12 lg:grid-cols-12">
             {/* Left: copy */}
-            <div className="lg:col-span-6 z-10">
-              <div className="animate-fade-up inline-flex items-center gap-2.5 rounded-full border border-primary-400/35 bg-primary-400/10 px-5 py-2 text-sm sm:text-base font-semibold text-primary-200">
-                <span className="relative flex h-2.5 w-2.5">
+            <div className="lg:col-span-6 min-w-0 z-10">
+              <div className="animate-fade-up inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-primary-400/35 bg-primary-400/10 px-3.5 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-base font-semibold text-primary-200 max-w-full">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success-400 opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success-400" />
                 </span>
-                Ethiopia's #1 Game Top-Up & Esports Platform
+                <span>Ethiopia's #1 Game Top-Up &amp; Esports Platform</span>
               </div>
 
               <h1
-                className="animate-fade-up mt-6 font-display text-4xl font-extrabold leading-[1.08] text-white text-shadow-glow sm:text-5xl lg:text-6xl"
+                className="animate-fade-up mt-5 sm:mt-6 font-display text-3xl font-extrabold leading-[1.08] text-white text-shadow-glow sm:text-5xl lg:text-6xl"
                 style={{ animationDelay: '0.1s' }}
               >
                 Top up. Compete.
@@ -69,7 +69,7 @@ export default function HomePage({ onNavigate }: { onNavigate: (p: PageId) => vo
               </h1>
 
               <p
-                className="animate-fade-up mt-6 max-w-xl text-lg sm:text-xl leading-relaxed text-slate-300 font-normal"
+                className="animate-fade-up mt-4 sm:mt-6 max-w-xl text-base sm:text-xl leading-relaxed text-slate-300 font-normal"
                 style={{ animationDelay: '0.2s' }}
               >
                 Your gaming destination in Ethiopia. Access legitimate game products in <span className="font-bold text-white">Ethiopian Birr</span> via Telebirr &amp; CBE Birr, join free tournaments, and play curated 3D WebGL &amp; HTML5 browser games in one place.
@@ -116,7 +116,7 @@ export default function HomePage({ onNavigate }: { onNavigate: (p: PageId) => vo
             </div>
 
             {/* Right: Unconstrained 3D Free Fire Character & Throne Stage */}
-            <div className="lg:col-span-6 relative z-10 flex items-center justify-center">
+            <div className="lg:col-span-6 min-w-0 relative z-10 flex items-center justify-center">
               <div className="w-full">
                 <FreeFireHeroStage />
               </div>
@@ -124,12 +124,12 @@ export default function HomePage({ onNavigate }: { onNavigate: (p: PageId) => vo
           </div>
 
           {/* Platform Statistics */}
-          <div ref={statsRef} className="mt-16">
-            <div className="flex items-center justify-between text-xs text-slate-500 mb-3 px-1">
+          <div ref={statsRef} className="mt-10 sm:mt-16">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 mb-3 px-1">
               <span>PLATFORM OVERVIEW</span>
               <span>Ethiopia Esports &amp; Game Store</span>
             </div>
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
               {platformStats.map((s, i) => (
                 <StatCard key={s.label} stat={s} active={inView} delay={i * 0.1} />
               ))}
@@ -296,7 +296,7 @@ export default function HomePage({ onNavigate }: { onNavigate: (p: PageId) => vo
       {/* === UPCOMING TOURNAMENTS PREVIEW === */}
       <section className="relative py-16 bg-white/[0.01]">
         <div className="container-x">
-          <Reveal className="flex items-end justify-between gap-4 mb-8">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
               <span className="chip border-gold-400/30 bg-gold-400/10 text-gold-200">
                 <Trophy className="h-3.5 w-3.5" /> Live Competitions
@@ -349,20 +349,20 @@ function StatCard({ stat, active, delay }: { stat: typeof platformStats[number];
   const Icon = stat.icon;
   return (
     <div
-      className={`glass card-spotlight animate-fade-up rounded-2xl p-5 ${active ? 'animate-count-pop' : 'opacity-0'}`}
+      className={`glass card-spotlight animate-fade-up rounded-2xl p-3.5 sm:p-5 ${active ? 'animate-count-pop' : 'opacity-0'}`}
       style={{ animationDelay: `${delay}s` }}
     >
-      <div className="flex items-center justify-between">
-        <Icon className="h-5 w-5 text-primary-400" />
+      <div className="flex flex-wrap items-center justify-between gap-1.5">
+        <Icon className="h-5 w-5 text-primary-400 shrink-0" />
         <span className="rounded bg-white/10 text-[9px] font-bold text-slate-300 px-1.5 py-0.5 uppercase">
           {stat.note}
         </span>
       </div>
-      <p className="mt-3 font-mono text-2xl font-bold text-white sm:text-3xl tabular-nums">
+      <p className="mt-2.5 sm:mt-3 font-mono text-xl font-bold text-white sm:text-3xl tabular-nums">
         {v.toLocaleString()}
         {stat.suffix}
       </p>
-      <p className="mt-1 text-xs text-slate-300 sm:text-sm">{stat.label}</p>
+      <p className="mt-1 text-[11px] text-slate-300 sm:text-sm leading-snug">{stat.label}</p>
     </div>
   );
 }

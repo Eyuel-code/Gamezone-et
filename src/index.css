@@ -19,6 +19,7 @@
   html {
     scroll-behavior: smooth;
     background-color: #040611;
+    overflow-x: hidden;
   }
   :is(a, button:not(:disabled), summary, select:not(:disabled), [role="button"], [role="tab"], [role="switch"], [role="menuitem"], input[type="button"]:not(:disabled), input[type="submit"]:not(:disabled), .cursor-pointer) {
     cursor: pointer;

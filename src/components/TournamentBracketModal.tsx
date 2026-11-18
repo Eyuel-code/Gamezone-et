@@ -117,12 +117,12 @@ export default function TournamentBracketModal({
         aria-modal="true"
         aria-labelledby="bracket-modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-4xl rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-6"
+        className="relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border border-white/10 bg-ink-900 shadow-2xl overflow-hidden my-auto"
       >
         {/* Header */}
-        <div className="relative p-6 border-b border-white/10 bg-gradient-to-r from-ink-950 via-ink-900 to-ink-950">
+        <div className="relative shrink-0 p-4 sm:p-6 border-b border-white/10 bg-gradient-to-r from-ink-950 via-ink-900 to-ink-950">
           <div className="flex items-start justify-between gap-3">
-            <div className="space-y-1">
+            <div className="space-y-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-400/10 border border-gold-400/30 px-3 py-0.5 text-xs font-bold text-gold-300">
                   <Trophy className="h-3.5 w-3.5" aria-hidden="true" /> Official Competition Bracket
@@ -160,14 +160,14 @@ export default function TournamentBracketModal({
               type="button"
               onClick={onClose}
               aria-label="Close tournament bracket modal"
-              className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="shrink-0 grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
 
           {/* Navigation Tabs */}
-          <div role="tablist" aria-label="Tournament bracket sections" className="flex items-center gap-2 mt-5 border-b border-white/10 -mb-6 pb-2">
+          <div role="tablist" aria-label="Tournament bracket sections" className="flex items-center gap-2 mt-4 sm:mt-5 border-b border-white/10 -mb-4 sm:-mb-6 pb-2 overflow-x-auto scrollbar-none">
             {[
               { id: 'bracket', label: 'Interactive Bracket' },
               { id: 'rules', label: 'Rules & Format' },
@@ -183,7 +183,7 @@ export default function TournamentBracketModal({
                   aria-selected={selected}
                   aria-controls={`bracket-panel-${t.id}`}
                   onClick={() => setActiveTab(t.id as any)}
-                  className={`relative z-0 nav-luminous-item px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                  className={`relative z-0 nav-luminous-item whitespace-nowrap shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                     selected
                       ? 'text-ink-950'
                       : 'text-slate-400 hover:text-white'
@@ -204,7 +204,7 @@ export default function TournamentBracketModal({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 max-h-[70vh] overflow-y-auto">
+        <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto">
           {activeTab === 'bracket' && (
             <div
               id="bracket-panel-bracket"
@@ -248,22 +248,22 @@ export default function TournamentBracketModal({
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <div className="flex items-center justify-between rounded-xl border border-white/15 bg-ink-950/75 px-3 py-2">
-                      <div>
+                    <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/15 bg-ink-950/75 px-3 py-2">
+                      <div className="min-w-0">
                         <span className="text-[10px] uppercase tracking-wider text-slate-400 block">Room ID</span>
-                        <span className="font-mono text-sm font-black text-white">{creds.roomId}</span>
+                        <span className="font-mono text-sm font-black text-white break-all">{creds.roomId}</span>
                       </div>
                       <button
                         type="button"
                         onClick={() => handleCopy('roomId', creds.roomId)}
-                        className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-primary-300 hover:bg-white/10 flex items-center gap-1 cursor-pointer"
+                        className="shrink-0 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-primary-300 hover:bg-white/10 flex items-center gap-1 cursor-pointer"
                       >
                         {copiedField === 'roomId' ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
                         {copiedField === 'roomId' ? 'Copied' : 'Copy'}
                       </button>
                     </div>
-                    <div className="flex items-center justify-between rounded-xl border border-white/15 bg-ink-950/75 px-3 py-2 gap-2">
-                      <div>
+                    <div className="flex flex-wrap items-center justify-between rounded-xl border border-white/15 bg-ink-950/75 px-3 py-2 gap-2">
+                      <div className="min-w-0">
                         <span className="text-[10px] uppercase tracking-wider text-slate-400 block">Room Password</span>
                         <span className="font-mono text-sm font-black text-amber-300">
                           {revealRoomPass ? creds.roomPassword : maskSecretValue(creds.roomPassword, 1)}

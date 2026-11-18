@@ -331,7 +331,7 @@ export default function EsportsAiAssistant({
     <>
       {/* Floating Help ("?") & Glowing AI Launcher Dock (Bottom-Right) */}
       {(!isOpen || isMinimized) && (
-        <div className="fixed bottom-5 right-5 z-[70] flex items-center gap-3">
+        <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[70] flex items-center gap-2.5 sm:gap-3">
           {isMinimized && (
             <button
               type="button"
@@ -399,7 +399,7 @@ export default function EsportsAiAssistant({
           role="dialog"
           aria-modal="false"
           aria-labelledby="esports-ai-dialog-title"
-          className="fixed bottom-5 right-5 z-[75] flex w-[calc(100vw-2rem)] sm:w-[400px] max-h-[min(600px,calc(100vh-5.5rem))] flex-col overflow-hidden rounded-3xl glass-strong border border-cyan-400/40 shadow-[0_24px_70px_-12px_rgba(4,6,17,0.95),0_0_40px_-8px_rgba(0,245,212,0.28)]"
+          className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[75] flex w-[calc(100vw-2rem)] sm:w-[400px] max-h-[min(600px,calc(100vh-5.5rem))] flex-col overflow-hidden rounded-3xl glass-strong border border-cyan-400/40 shadow-[0_24px_70px_-12px_rgba(4,6,17,0.95),0_0_40px_-8px_rgba(0,245,212,0.28)]"
         >
           {/* Chat Header */}
           <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-gradient-to-r from-primary-500/15 via-violet-500/14 to-amber-500/10 px-4 py-3.5">

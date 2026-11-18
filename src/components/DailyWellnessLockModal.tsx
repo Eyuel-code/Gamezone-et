@@ -154,7 +154,7 @@ export default function DailyWellnessLockModal({
 
   return (
     <div
-      className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-ink-950/92 backdrop-blur-2xl animate-fade-in"
+      className="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-ink-950/92 backdrop-blur-2xl animate-fade-in"
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="daily-wellness-lock-title"
@@ -163,7 +163,7 @@ export default function DailyWellnessLockModal({
       <div
         ref={dialogRef}
         tabIndex={-1}
-        className="relative w-full max-w-2xl rounded-3xl glass-strong border border-emerald-400/35 p-6 sm:p-8 shadow-2xl focus:outline-none my-auto"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl glass-strong border border-emerald-400/35 p-4 sm:p-8 shadow-2xl focus:outline-none my-auto"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
           <div className="flex items-center gap-3.5">

@@ -357,7 +357,7 @@ export default function GamesPage({ onPlayGame, onNavigate }: GamesPageProps) {
               />
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <label htmlFor="games-sort-select" className="text-xs text-slate-400 hidden sm:inline">
                 Sort:
               </label>

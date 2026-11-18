@@ -237,7 +237,7 @@ export const ResponsiveGameModal: React.FC<ResponsiveGameModalProps> = ({
         }`}
       >
         {/* === ARCADE CONTROL BAR === */}
-        <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-white/10 bg-[#0c1024]/88 backdrop-blur-md shrink-0">
+        <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 px-3 sm:px-6 py-2.5 sm:py-3 border-b border-white/10 bg-[#0c1024]/88 backdrop-blur-md shrink-0">
           {/* Left: Title & Keyboard Hint */}
           <div className="flex items-center gap-3 min-w-0 flex-1">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#00d2ff] via-[#3a7bd5] to-[#8b5cf6] text-white shadow-[0_0_18px_rgba(0,210,255,0.4)]">
@@ -436,7 +436,7 @@ export const ResponsiveGameModal: React.FC<ResponsiveGameModalProps> = ({
 
           {/* === MATCH PERFORMANCE SUMMARY OVERLAY === */}
           {showSummaryModal && matchResult && (
-            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-ink-950/92 backdrop-blur-2xl p-6 text-center animate-fade-in">
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-start sm:justify-center overflow-y-auto bg-ink-950/92 backdrop-blur-2xl p-4 sm:p-6 text-center animate-fade-in">
               <div className="relative">
                 <div className="grid h-20 w-20 place-items-center rounded-3xl bg-gradient-to-br from-sky-500/25 via-violet-500/20 to-amber-500/20 border-2 border-sky-400 text-3xl font-black font-display text-sky-300">
                   {matchResult.grade}

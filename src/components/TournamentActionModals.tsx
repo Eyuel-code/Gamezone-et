@@ -36,7 +36,7 @@ export function MatchResultModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-md" onClick={onClose} aria-hidden="true" />
       <div
         ref={modalRef}
@@ -44,7 +44,7 @@ export function MatchResultModal({
         aria-modal="true"
         aria-labelledby="match-result-modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-ink-900 shadow-2xl p-5 space-y-4"
+        className="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/10 bg-ink-900 shadow-2xl p-4 sm:p-5 space-y-4"
       >
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
           <h3 id="match-result-modal-title" className="font-display font-bold text-white text-base">
@@ -143,7 +143,7 @@ export function TournamentDisputeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-md" onClick={onClose} aria-hidden="true" />
       <div
         ref={modalRef}
@@ -151,7 +151,7 @@ export function TournamentDisputeModal({
         aria-modal="true"
         aria-labelledby="dispute-modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-2xl border border-error-500/30 bg-ink-900 shadow-2xl p-5 space-y-4"
+        className="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-error-500/30 bg-ink-900 shadow-2xl p-4 sm:p-5 space-y-4"
       >
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
           <div className="flex items-center gap-2 text-error-400">

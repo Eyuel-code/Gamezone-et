@@ -103,14 +103,14 @@ export default function WalletPage({
           <div className="grid gap-6 lg:grid-cols-3">
             {/* Balance card */}
             <Reveal className="lg:col-span-1">
-              <div className="glass-strong relative overflow-hidden rounded-2xl p-6">
+              <div className="glass-strong relative overflow-hidden rounded-2xl p-4 sm:p-6">
                 <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(circle at 90% 10%, rgba(0, 245, 212, 0.2), transparent 50%)' }} aria-hidden="true" />
                 <p id="wallet-balance-label" className="text-sm text-slate-400">Available balance</p>
                 <p
                   aria-labelledby="wallet-balance-label"
                   aria-live="polite"
                   aria-atomic="true"
-                  className="mt-2 font-mono text-4xl font-bold text-white"
+                  className="mt-2 font-mono text-3xl sm:text-4xl font-bold text-white break-words"
                 >
                   {formatETB(balance)}
                 </p>
@@ -195,7 +195,7 @@ export default function WalletPage({
 
             {/* Transactions */}
             <Reveal delay={120} className="lg:col-span-2">
-              <div className="glass-strong rounded-2xl p-6">
+              <div className="glass-strong rounded-2xl p-4 sm:p-6">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-2"><History className="h-5 w-5 text-slate-400" aria-hidden="true" /><h2 className="font-display text-lg font-bold text-white">Saved Payments (Last 2 Months)</h2></div>
                   <div role="group" aria-label="Filter wallet transactions" className="flex flex-wrap items-center gap-1.5">
@@ -224,12 +224,12 @@ export default function WalletPage({
                     </p>
                   ) : (
                     filteredTx.map((tx, i) => (
-                      <div key={i} className="flex items-center gap-4 py-3">
-                        <span className={`grid h-10 w-10 place-items-center rounded-xl ${tx.amount > 0 ? 'bg-success-400/10 text-success-400' : 'bg-error-400/10 text-error-400'}`}>
+                      <div key={i} className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4 py-3">
+                        <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${tx.amount > 0 ? 'bg-success-400/10 text-success-400' : 'bg-error-400/10 text-error-400'}`}>
                           {tx.amount > 0 ? <ArrowDownLeft className="h-5 w-5" /> : <ArrowUpRight className="h-5 w-5" />}
                         </span>
-                        <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium text-white">{tx.label}</p><p className="text-xs text-slate-500">{tx.sub}</p></div>
-                        <span className={`font-mono text-sm font-bold ${tx.amount > 0 ? 'text-success-400' : 'text-slate-300'}`}>{tx.amount > 0 ? '+' : '-'}{formatETB(Math.abs(tx.amount))}</span>
+                        <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium text-white">{tx.label}</p><p className="text-xs text-slate-500 truncate">{tx.sub}</p></div>
+                        <span className={`font-mono text-sm font-bold shrink-0 ${tx.amount > 0 ? 'text-success-400' : 'text-slate-300'}`}>{tx.amount > 0 ? '+' : '-'}{formatETB(Math.abs(tx.amount))}</span>
                       </div>
                     ))
                   )}
@@ -240,7 +240,7 @@ export default function WalletPage({
 
           {/* Payment methods */}
           <Reveal>
-            <div className="glass rounded-2xl p-6">
+            <div className="glass rounded-2xl p-4 sm:p-6">
               <h2 className="font-display text-lg font-bold text-white">Supported payment methods</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 {paymentMethods.map((m) => {

@@ -224,19 +224,19 @@ export default function IdentityVerificationModal({
         aria-modal="true"
         aria-labelledby="id-verify-modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-lg rounded-2xl border border-primary-400/30 bg-ink-900 shadow-2xl overflow-hidden my-6 focus:outline-none"
+        className="relative z-10 w-full max-w-lg max-h-[90vh] flex flex-col rounded-2xl border border-primary-400/30 bg-ink-900 shadow-2xl overflow-hidden my-auto focus:outline-none"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 p-5 bg-gradient-to-r from-primary-500/15 via-emerald-500/10 to-accent-500/10">
-          <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary-500/20 border border-primary-400/40 text-primary-300">
+        <div className="shrink-0 flex items-center justify-between gap-3 border-b border-white/10 p-4 sm:p-5 bg-gradient-to-r from-primary-500/15 via-emerald-500/10 to-accent-500/10">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-500/20 border border-primary-400/40 text-primary-300">
               <ShieldCheck className="h-5 w-5" aria-hidden="true" />
             </span>
-            <div>
+            <div className="min-w-0">
               <span className="text-[10px] font-bold uppercase tracking-wider text-primary-300 block">
                 Anti-Smurf Exclusive Identity Gate
               </span>
-              <h3 id="id-verify-modal-title" className="font-display text-lg font-extrabold text-white">
+              <h3 id="id-verify-modal-title" className="font-display text-base sm:text-lg font-extrabold text-white truncate">
                 Ethiopian Digital ID OR Passport
               </h3>
             </div>
@@ -246,14 +246,14 @@ export default function IdentityVerificationModal({
             type="button"
             onClick={onClose}
             aria-label="Close identity verification modal"
-            className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
+            className="shrink-0 grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
         {verifiedSuccess ? (
-          <div className="p-6 space-y-5 text-center">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-5 text-center">
             <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 shadow-glow">
               <CheckCircle2 className="h-7 w-7" />
             </div>
@@ -305,7 +305,7 @@ export default function IdentityVerificationModal({
             </button>
           </div>
         ) : isAlreadyLockedVerified && currentUser ? (
-          <div className="p-6 space-y-4">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4">
             <div className="rounded-xl border border-emerald-400/35 bg-emerald-500/10 p-4 flex items-start gap-3 text-xs">
               <Lock className="h-4 w-4 text-emerald-300 shrink-0 mt-0.5" />
               <div className="space-y-1">
@@ -354,7 +354,7 @@ export default function IdentityVerificationModal({
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-5 space-y-4">
+          <form onSubmit={handleSubmit} className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 space-y-4">
             <div className="rounded-xl border border-primary-400/30 bg-primary-500/10 p-3 flex items-start gap-2.5 text-xs text-primary-100">
               <Lock className="h-4 w-4 text-primary-300 shrink-0 mt-0.5" aria-hidden="true" />
               <span>
@@ -401,7 +401,7 @@ export default function IdentityVerificationModal({
 
             {/* Verification Method Tabs (Mutually Exclusive) */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
                 <span className="text-xs font-semibold text-slate-300">
                   Choose ONE Credential Type <span className="text-primary-400">*</span>
                 </span>
@@ -441,7 +441,7 @@ export default function IdentityVerificationModal({
 
             {/* Full Name on Document (Fuzzy-Matched Against Account Name) */}
             <div>
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1">
                 <label htmlFor="identity-doc-fullname" className="text-xs font-semibold text-slate-300">
                   Full Name Printed on ID / Passport <span className="text-primary-400">*</span>
                 </label>
@@ -490,7 +490,7 @@ export default function IdentityVerificationModal({
 
             {/* Identifier Input */}
             <div>
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1">
                 <label htmlFor="identity-identifier-input" className="text-xs font-semibold text-slate-300">
                   {activeMethod.label} <span className="text-primary-400">*</span>
                 </label>
@@ -536,7 +536,7 @@ export default function IdentityVerificationModal({
 
             {/* Optional Client-Only Masked Document Scan Preview */}
             <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3.5 space-y-2.5">
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="text-xs">
                   <span className="font-semibold text-slate-200 block">
                     Optional Document Scan Check (Client-Only Preview)
@@ -594,7 +594,7 @@ export default function IdentityVerificationModal({
               </span>
             </label>
 
-            <div className="pt-1 flex items-center justify-between gap-2">
+            <div className="pt-1 flex flex-wrap items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={onClose}

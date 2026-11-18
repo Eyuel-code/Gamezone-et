@@ -193,7 +193,7 @@ export default function TournamentsPage({
           {/* Filters */}
           <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
             {/* Game Selector Filter */}
-            <div role="group" aria-label="Filter tournaments by game" className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+            <div role="group" aria-label="Filter tournaments by game" className="flex flex-wrap items-center gap-1.5 w-full md:w-auto max-w-full pb-1 sm:pb-0">
               {[
                 { id: 'all', label: 'All Titles' },
                 { id: 'freefire', label: 'Free Fire' },
@@ -228,7 +228,7 @@ export default function TournamentsPage({
             </div>
 
             {/* Status Filter */}
-            <div role="group" aria-label="Filter tournaments by status" className="flex items-center gap-2">
+            <div role="group" aria-label="Filter tournaments by status" className="flex flex-wrap items-center gap-2 w-full md:w-auto">
               <span className="text-xs font-semibold text-slate-400">Status:</span>
               {['all', 'open', 'filling', 'live', 'completed'].map((st) => {
                 const active = statusFilter === st;
@@ -285,7 +285,7 @@ export default function TournamentsPage({
                   <div className="relative h-40 overflow-hidden">
                     <ResilientImage src={t.banner} alt={t.title} fallbackLabel={t.gameName} className="h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
-                    <div className="top-3 left-3 right-3 absolute flex items-center justify-between gap-2">
+                    <div className="top-3 left-3 right-3 absolute flex flex-wrap items-center justify-between gap-2">
                       <span className="flex items-center gap-1.5 rounded-full bg-ink-950/80 backdrop-blur-md border border-white/10 px-2.5 py-0.5 text-xs font-bold text-white">
                         <Icon className="h-3.5 w-3.5 text-primary-400" />
                         {t.gameName}
@@ -559,7 +559,7 @@ function CountdownBanner({
 
         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
           {/* Visual ticking clock hidden from AT to avoid 1-second spam; sr-only timer handles AT */}
-          <div className="flex gap-2" aria-hidden="true">
+          <div className="flex flex-wrap gap-2" aria-hidden="true">
             {units.map((u) => (
               <div
                 key={u.label}

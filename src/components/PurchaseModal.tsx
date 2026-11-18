@@ -56,9 +56,9 @@ export default function PurchaseModal({ open, item, game, onClose, onConfirm }: 
   };
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <div
-        className="absolute inset-0 bg-ink-950/80 backdrop-blur-sm animate-fade-up"
+        className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm animate-fade-up"
         onClick={onClose}
         aria-hidden="true"
         style={{ animationDuration: '0.3s' }}
@@ -69,27 +69,27 @@ export default function PurchaseModal({ open, item, game, onClose, onConfirm }: 
         aria-modal="true"
         aria-labelledby="purchase-modal-title"
         tabIndex={-1}
-        className="glass-strong relative z-10 w-full max-w-md animate-scale-in overflow-hidden rounded-2xl focus:outline-none"
+        className="glass-strong relative z-10 w-full max-w-md max-h-[90vh] flex flex-col my-auto animate-scale-in overflow-hidden rounded-2xl focus:outline-none"
       >
         {/* accent bar */}
-        <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${game.accent}, transparent)` }} aria-hidden="true" />
+        <div className="shrink-0 h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${game.accent}, transparent)` }} aria-hidden="true" />
 
-        <div className="flex items-center justify-between border-b border-white/10 p-5">
-          <div>
-            <h3 id="purchase-modal-title" className="font-display text-lg font-bold text-white">Complete purchase</h3>
-            <p className="text-xs text-slate-400">{game.name}</p>
+        <div className="shrink-0 flex items-center justify-between gap-3 border-b border-white/10 p-4 sm:p-5">
+          <div className="min-w-0">
+            <h3 id="purchase-modal-title" className="font-display text-lg font-bold text-white truncate">Complete purchase</h3>
+            <p className="text-xs text-slate-400 truncate">{game.name}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close purchase modal"
-            className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-slate-400 hover:text-white cursor-pointer"
+            className="shrink-0 grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-slate-400 hover:text-white cursor-pointer"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
-        <div className="p-5">
+        <div className="p-4 sm:p-5 flex-1 min-h-0 overflow-y-auto">
           {/* Order summary */}
           <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
             <div className="flex items-center justify-between">

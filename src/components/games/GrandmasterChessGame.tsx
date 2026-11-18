@@ -488,8 +488,8 @@ export default function GrandmasterChessGame({ onGameOver, onExit }: Grandmaster
         </div>
 
         {/* 8x8 Chessboard */}
-        <div className="relative p-2.5 rounded-2xl bg-gradient-to-br from-amber-950 via-slate-900 to-ink-950 border-2 border-gold-500/40 shadow-2xl">
-          <div className="grid grid-cols-8 grid-rows-8 w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] border border-amber-800/80 rounded-xl overflow-hidden shadow-inner">
+        <div className="relative w-full max-w-[320px] sm:max-w-[420px] p-2 sm:p-2.5 rounded-2xl bg-gradient-to-br from-amber-950 via-slate-900 to-ink-950 border-2 border-gold-500/40 shadow-2xl">
+          <div className="grid grid-cols-8 grid-rows-8 w-full aspect-square border border-amber-800/80 rounded-xl overflow-hidden shadow-inner">
             {board.map((row, r) =>
               row.map((piece, c) => {
                 const isDark = (r + c) % 2 === 1;
@@ -500,7 +500,7 @@ export default function GrandmasterChessGame({ onGameOver, onExit }: Grandmaster
                   <button
                     key={`${r}-${c}`}
                     onClick={() => handleSquareClick(r, c)}
-                    className={`no-heat relative flex items-center justify-center text-3xl sm:text-4xl transition-all cursor-pointer font-serif select-none ${
+                    className={`no-heat relative flex items-center justify-center text-2xl sm:text-4xl transition-all cursor-pointer font-serif select-none ${
                       isDark ? 'bg-amber-950/80 hover:bg-amber-900/90' : 'bg-amber-100 hover:bg-amber-200'
                     } ${isSelected ? 'ring-4 ring-primary-400 z-10' : ''}`}
                   >

@@ -139,7 +139,7 @@ export default function AvatarPicker({
         <p className="text-[11px] font-medium text-slate-400 mb-2">
           Or pick one of our 5 basic website profiles:
         </p>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
           {GAMER_AVATARS.map((preset) => {
             const active = value === preset.url;
             return (
@@ -153,7 +153,7 @@ export default function AvatarPicker({
                   onChange(preset.url);
                 }}
                 title={preset.label}
-                className={`group flex flex-col items-center gap-1 rounded-xl border p-1.5 transition-all cursor-pointer ${
+                className={`group min-w-0 flex flex-col items-center gap-1 rounded-xl border p-1 sm:p-1.5 transition-all cursor-pointer ${
                   active
                     ? 'border-primary-400 bg-primary-500/15 ring-1 ring-primary-400/50'
                     : 'border-white/10 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.06]'
@@ -163,7 +163,7 @@ export default function AvatarPicker({
                   <img
                     src={preset.url}
                     alt={preset.label}
-                    className="h-10 w-10 rounded-lg object-cover"
+                    className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg object-cover"
                   />
                   {active && (
                     <span aria-hidden="true" className="absolute -top-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-primary-500 text-ink-950">

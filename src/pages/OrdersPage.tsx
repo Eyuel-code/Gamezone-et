@@ -170,7 +170,7 @@ export default function OrdersPage({
               </button>
             </div>
 
-            <div className="relative min-w-[240px] flex-1 sm:flex-initial">
+            <div className="relative min-w-0 w-full sm:w-auto sm:min-w-[240px] flex-1 sm:flex-initial">
               <label htmlFor="orders-search" className="sr-only">
                 Search order ID, game, player, or receipt
               </label>
@@ -319,7 +319,7 @@ export default function OrdersPage({
 
         {/* Detailed Receipt Modal */}
         {selectedOrder && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
             <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-md" onClick={() => setSelectedOrder(null)} aria-hidden="true" />
             <div
               ref={receiptModalRef}
@@ -327,43 +327,43 @@ export default function OrdersPage({
               aria-modal="true"
               aria-labelledby="order-receipt-modal-title"
               tabIndex={-1}
-              className="relative z-10 w-full max-w-md rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-6 space-y-4 focus:outline-none"
+              className="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto my-auto rounded-2xl border border-white/15 bg-ink-900 shadow-2xl p-4 sm:p-6 space-y-4 focus:outline-none"
             >
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <div className="flex items-center gap-2">
-                  <Receipt className="h-5 w-5 text-primary-400" aria-hidden="true" />
-                  <h2 id="order-receipt-modal-title" className="font-display font-bold text-white text-base">Official Payment Receipt</h2>
+              <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Receipt className="h-5 w-5 text-primary-400 shrink-0" aria-hidden="true" />
+                  <h2 id="order-receipt-modal-title" className="font-display font-bold text-white text-base truncate">Official Payment Receipt</h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedOrder(null)}
                   aria-label="Close receipt modal"
-                  className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
+                  className="shrink-0 grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 cursor-pointer"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
 
               <div className="space-y-3 text-xs">
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Order ID</span>
-                  <span className="font-mono text-white font-semibold">{selectedOrder.id}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Order ID</span>
+                  <span className="font-mono text-white font-semibold text-right break-all min-w-0">{selectedOrder.id}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Receipt Reference</span>
-                  <span className="font-mono text-primary-300 font-semibold">{selectedOrder.receiptRef}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Receipt Reference</span>
+                  <span className="font-mono text-primary-300 font-semibold text-right break-all min-w-0">{selectedOrder.receiptRef}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Game & Item</span>
-                  <span className="text-white font-semibold">{selectedOrder.gameName} — {selectedOrder.productName}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Game & Item</span>
+                  <span className="text-white font-semibold text-right break-words min-w-0">{selectedOrder.gameName} — {selectedOrder.productName}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Player ID</span>
-                  <span className="font-mono text-primary-300 font-semibold">{selectedOrder.playerId}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Player ID</span>
+                  <span className="font-mono text-primary-300 font-semibold text-right break-all min-w-0">{selectedOrder.playerId}</span>
                 </div>
-                <div className="flex justify-between items-center py-1 border-b border-white/5">
-                  <span className="text-slate-400">Notification Phone</span>
-                  <span className="flex items-center gap-2 font-mono text-slate-200">
+                <div className="flex justify-between items-center gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Notification Phone</span>
+                  <span className="flex items-center gap-2 font-mono text-slate-200 min-w-0">
                     {revealOrderPhone
                       ? selectedOrder.customerPhone
                       : maskPhoneNumber(selectedOrder.customerPhone)}
@@ -377,21 +377,21 @@ export default function OrdersPage({
                     </button>
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Server / Zone</span>
-                  <span className="text-white">{selectedOrder.playerZone || 'Default Server'}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Server / Zone</span>
+                  <span className="text-white text-right break-words min-w-0">{selectedOrder.playerZone || 'Default Server'}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Payment Channel</span>
-                  <span className="text-white uppercase font-semibold">{selectedOrder.paymentMethod}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Payment Channel</span>
+                  <span className="text-white uppercase font-semibold text-right">{selectedOrder.paymentMethod}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Total Price</span>
-                  <span className="font-mono font-bold text-white text-sm">{formatETB(selectedOrder.amountETB)}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Total Price</span>
+                  <span className="font-mono font-bold text-white text-sm text-right">{formatETB(selectedOrder.amountETB)}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Timestamp</span>
-                  <span className="text-white">{selectedOrder.createdAt}</span>
+                <div className="flex justify-between gap-3 py-1 border-b border-white/5">
+                  <span className="text-slate-400 shrink-0">Timestamp</span>
+                  <span className="text-white text-right break-words min-w-0">{selectedOrder.createdAt}</span>
                 </div>
               </div>
 

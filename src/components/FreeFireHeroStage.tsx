@@ -201,24 +201,24 @@ export default function FreeFireHeroStage() {
       />
 
       {/* Floating Status Badges — Out of the Box */}
-      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2.5 pointer-events-none">
-        <span className="inline-flex items-center gap-2 rounded-2xl border border-gold-400/40 bg-ink-950/80 px-4 py-2 text-base font-bold text-gold-300 backdrop-blur-xl shadow-glow-gold">
-          <Trophy className="h-4.5 w-4.5 text-gold-400" />
-          {character === 'alok' ? 'DJ Alok' : 'Wolfrahh'} • Throne of Champions
+      <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 z-20 flex flex-wrap items-center gap-2 sm:gap-2.5 pointer-events-none">
+        <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-2xl border border-gold-400/40 bg-ink-950/80 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base font-bold text-gold-300 backdrop-blur-xl shadow-glow-gold">
+          <Trophy className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-gold-400 shrink-0" />
+          <span className="truncate">{character === 'alok' ? 'DJ Alok' : 'Wolfrahh'} • Throne of Champions</span>
         </span>
         <span className="hidden sm:inline-flex items-center gap-2 rounded-2xl border border-accent-400/40 bg-ink-950/80 px-3.5 py-2 text-sm font-bold text-accent-300 backdrop-blur-xl shadow-glow-accent">
           <Flame className="h-4 w-4 text-accent-400 animate-pulse" />
           MP40 Predatory Cobra EVO
         </span>
-        <span className="inline-flex items-center gap-1.5 rounded-2xl border border-primary-400/30 bg-ink-950/80 px-3 py-1.5 text-xs font-semibold text-primary-300 backdrop-blur-xl">
-          <Sparkles className="h-3.5 w-3.5 text-primary-400" />
+        <span className="inline-flex items-center gap-1.5 rounded-2xl border border-primary-400/30 bg-ink-950/80 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-primary-300 backdrop-blur-xl">
+          <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary-400 shrink-0" />
           Aura: {phase === 'settled' ? '100% Graceful Idle' : phase.toUpperCase()}
         </span>
       </div>
 
       {/* Real Free Fire Character Video Elements with Soft Feather Mask (Zero Box / No Rectangle) */}
       <div
-        className="relative z-10 w-full max-w-[460px] h-[580px] sm:h-[640px] lg:h-[690px] flex items-center justify-center"
+        className="relative z-10 w-full max-w-[460px] h-[380px] sm:h-[540px] lg:h-[660px] xl:h-[690px] flex items-center justify-center"
         style={{
           // Feather mask that erases any rectangular border, allowing character & aura to bleed into page
           maskImage: 'radial-gradient(ellipse 65% 72% at 50% 50%, black 50%, rgba(0,0,0,0.85) 70%, transparent 98%)',
