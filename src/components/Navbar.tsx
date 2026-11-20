@@ -27,6 +27,8 @@ import {
   Info,
   Accessibility,
   HeartPulse,
+  Eye,
+  PauseCircle,
 } from 'lucide-react';
 import type { PageId } from '@/hooks/useRouter';
 import { isAuthorizedAdminUser, signOutAccount } from '@/services/authService';
@@ -63,7 +65,13 @@ export default function Navbar({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
   const a11yRef = useRef<HTMLDivElement>(null);
-  const { highContrast, reduceMotion, textScale } = useAccessibility();
+  const {
+    highContrast,
+    toggleHighContrast,
+    reduceMotion,
+    toggleReduceMotion,
+    textScale,
+  } = useAccessibility();
   const hasA11yActive = highContrast || reduceMotion || textScale !== 1;
 
   const isAdmin = isAuthorizedAdminUser(currentUser);
@@ -271,6 +279,38 @@ export default function Navbar({
               {(currentUser?.loyaltyPoints ?? loyaltyPoints ?? 0).toLocaleString()} XP
             </span>
           </button>
+
+          {/* Global 1-Click Accessibility Toggles (High Contrast & Reduced Motion) */}
+          <div className="hidden lg:flex items-center gap-1" role="group" aria-label="Quick accessibility toggles">
+            <button
+              type="button"
+              onClick={toggleHighContrast}
+              aria-pressed={highContrast}
+              title="Toggle High Contrast Mode"
+              className={`inline-flex items-center gap-1 rounded-xl border px-2.5 py-1.5 text-[11px] font-bold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                highContrast
+                  ? 'border-[#00f0ff] bg-[#00f0ff]/20 text-white'
+                  : 'border-white/15 bg-white/[0.04] text-slate-300 hover:border-white/30 hover:text-white'
+              }`}
+            >
+              <Eye className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span>Contrast</span>
+            </button>
+            <button
+              type="button"
+              onClick={toggleReduceMotion}
+              aria-pressed={reduceMotion}
+              title="Toggle Reduced Motion Mode"
+              className={`inline-flex items-center gap-1 rounded-xl border px-2.5 py-1.5 text-[11px] font-bold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                reduceMotion
+                  ? 'border-[#00f0ff] bg-[#00f0ff]/20 text-white'
+                  : 'border-white/15 bg-white/[0.04] text-slate-300 hover:border-white/30 hover:text-white'
+              }`}
+            >
+              <PauseCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span>Reduce Motion</span>
+            </button>
+          </div>
 
           {/* Accessibility Settings Quick Widget (Always accessible for signed-in & guest users) */}
           <div className="relative" ref={a11yRef}>
@@ -621,6 +661,37 @@ export default function Navbar({
               </li>
             );
           })}
+
+          <li className="pt-2 border-t border-white/10">
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={toggleHighContrast}
+                aria-pressed={highContrast}
+                className={`flex items-center justify-center gap-1.5 rounded-xl border p-2 text-xs font-bold whitespace-nowrap cursor-pointer ${
+                  highContrast
+                    ? 'border-[#00f0ff] bg-[#00f0ff]/20 text-white'
+                    : 'border-white/15 bg-white/5 text-slate-200'
+                }`}
+              >
+                <Eye className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span>High Contrast</span>
+              </button>
+              <button
+                type="button"
+                onClick={toggleReduceMotion}
+                aria-pressed={reduceMotion}
+                className={`flex items-center justify-center gap-1.5 rounded-xl border p-2 text-xs font-bold whitespace-nowrap cursor-pointer ${
+                  reduceMotion
+                    ? 'border-[#00f0ff] bg-[#00f0ff]/20 text-white'
+                    : 'border-white/15 bg-white/5 text-slate-200'
+                }`}
+              >
+                <PauseCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span>Reduce Motion</span>
+              </button>
+            </div>
+          </li>
 
           <li className="pt-2">
             {currentUser ? (

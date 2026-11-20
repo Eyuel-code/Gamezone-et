@@ -37,6 +37,8 @@ export default function UserAvatar({
       <img
         src={trimmed}
         alt={name ? `${name} avatar` : 'User avatar'}
+        loading="lazy"
+        decoding="async"
         referrerPolicy="no-referrer"
         onError={() => setImgFailed(true)}
         className={`${sizeCls} object-cover shrink-0 bg-ink-900 border border-white/10 ${className}`}

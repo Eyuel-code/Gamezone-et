@@ -7,10 +7,8 @@ import ScrollProgress from '@/components/ScrollProgress';
 import PageTransition from '@/components/PageTransition';
 import Footer from '@/components/Footer';
 import ToastStack, { type Toast } from '@/components/ToastStack';
-import PromoMarquee from '@/components/PromoMarquee';
 import VisualAlertBanner from '@/components/VisualAlertBanner';
 import { useAccessibility } from '@/context/AccessibilityContext';
-import DashboardPage from '@/pages/DashboardPage';
 import type { GamerProfile } from '@/components/AuthModal';
 import type { OnlineGame } from '@/data/gamesCatalog';
 import { PAGES, useRouter, type PageId } from '@/hooks/useRouter';
@@ -18,8 +16,11 @@ import { db, type UserAccount, type NotificationType } from '@/services/db';
 import { initAuthObserver, isAuthorizedAdminUser, signOutAccount } from '@/services/authService';
 import { securityEngine } from '@/services/securityEngine';
 import { type DailyWellnessState, wellnessEngine } from '@/services/wellnessEngine';
+import { initAnalytics, trackPageView } from '@/services/analytics';
 import { lazyWithRetry } from '@/utils/lazyWithRetry';
 
+const DashboardPage = lazyWithRetry(() => import('@/pages/DashboardPage'));
+const PromoMarquee = lazyWithRetry(() => import('@/components/PromoMarquee'));
 const GamesPage = lazyWithRetry(() => import('@/pages/GamesPage'));
 const TopUpPage = lazyWithRetry(() => import('@/pages/TopUpPage'));
 const TournamentsPage = lazyWithRetry(() => import('@/pages/TournamentsPage'));
@@ -170,10 +171,39 @@ export default function App() {
     }
   }, [page, isAdmin, navigate]);
 
-  // Scroll to top on page change (respects Reduce Motion)
+  // Scroll to top on page change (respects Reduce Motion) & sync SEO title, canonical, and analytics
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   }, [page, reduceMotion]);
+
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    const label = PAGES.find((p) => p.id === page)?.label || 'Dashboard';
+    const nextTitle =
+      page === 'home' || page === 'dashboard'
+        ? 'GameZone ET – Ethiopia Game Top-Up, Tournaments & Arcade'
+        : `${label} | GameZone ET`;
+    document.title = nextTitle;
+
+    const canonicalUrl = `${window.location.origin}${page === 'home' ? '/' : `/${page}`}`;
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalUrl;
+
+    const ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.content = canonicalUrl;
+    }
+
+    trackPageView(page, nextTitle);
+  }, [page]);
 
   const pushToast = useCallback(
     (
@@ -580,7 +610,11 @@ export default function App() {
           </Suspense>
         </PageTransition>
 
-        {(page === 'home' || page === 'dashboard') && <PromoMarquee />}
+        {(page === 'home' || page === 'dashboard') && (
+          <Suspense fallback={null}>
+            <PromoMarquee />
+          </Suspense>
+        )}
       </main>
 
       <Footer onNavigate={navigate} onNotify={pushToast} />

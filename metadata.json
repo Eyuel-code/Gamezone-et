@@ -1,6 +1,6 @@
 {
   "name": "GameZone ET",
-  "description": "Ethiopia's #1 game top-up, tournaments & esports platform. Buy diamonds, UC and FC Points in Ethiopian Birr.",
+  "description": "Buy Free Fire diamonds, PUBG UC & FC Points in Ethiopian Birr via Telebirr & CBE Birr, join free esports tournaments, and play instant browser games.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

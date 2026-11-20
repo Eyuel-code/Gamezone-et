@@ -1,21 +1,23 @@
 import { useState, useRef, useEffect } from 'react';
-import { Loader2, ShieldCheck, RefreshCw, Trophy, CheckCircle2 } from 'lucide-react';
+import { Loader2, ShieldCheck, RefreshCw, Trophy, CheckCircle2, Play } from 'lucide-react';
 import type { OnlineGame } from '@/data/gamesCatalog';
 import { enforceHttpsUrl } from '@/lib/env';
+import ResilientImage from '@/components/ResilientImage';
 
 interface Online3DProps {
   game: OnlineGame;
   onGameOver: (score: number, stats: any) => void;
+  autoStart?: boolean;
 }
 
-export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) {
+export default function Online3DGamePlayer({ game, onGameOver, autoStart = false }: Online3DProps) {
+  const [hasStarted, setHasStarted] = useState(autoStart);
   const [isLoading, setIsLoading] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const [simulatedScore, setSimulatedScore] = useState(620);
   const [iframeKey, setIframeKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Determine the exact verified embed URL
   const getEmbedUrl = (g: OnlineGame): string => {
     if (g.embedUrl) {
       return enforceHttpsUrl(g.embedUrl);
@@ -25,8 +27,16 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
 
   const embedUrl = getEmbedUrl(game);
 
-  // Session timer and score accumulation
+  // Reset preview facade when switching games
   useEffect(() => {
+    setHasStarted(autoStart);
+    setElapsed(0);
+    setSimulatedScore(450 + Math.floor(Math.random() * 200));
+  }, [game.id, autoStart]);
+
+  // Only start session timer & iframe loading after user clicks Play
+  useEffect(() => {
+    if (!hasStarted) return;
     setIsLoading(true);
     setElapsed(0);
     setSimulatedScore(450 + Math.floor(Math.random() * 200));
@@ -44,7 +54,7 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
       clearInterval(timer);
       clearTimeout(loadSafety);
     };
-  }, [game, iframeKey]);
+  }, [game, iframeKey, hasStarted]);
 
   const handleReload = () => {
     setIsLoading(true);
@@ -65,11 +75,44 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  if (!hasStarted) {
+    return (
+      <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/15 bg-[#080c1c] select-none">
+        <ResilientImage
+          src={game.coverImage}
+          alt={game.title}
+          fallbackLabel={game.title}
+          className="h-full w-full object-cover"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-[#040611]/95 via-[#040611]/45 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+          <button
+            type="button"
+            onClick={() => setHasStarted(true)}
+            aria-label={`Play ${game.title}`}
+            className="btn-glow-cyan inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-extrabold text-white cursor-pointer whitespace-nowrap"
+          >
+            <Play className="h-4 w-4 fill-current shrink-0" aria-hidden="true" />
+            <span>Play</span>
+          </button>
+          <p className="mt-2.5 text-xs text-slate-200 max-w-sm">
+            {game.controlsHint}
+          </p>
+          <p className="mt-1 text-[11px] font-medium text-emerald-300">
+            {game.accessibilityTags.join(' · ')}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center bg-black overflow-hidden select-none">
       {/* Top Embedded HUD Bar */}
       <div className="absolute top-2 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-2 text-xs font-mono pointer-events-none">
-        {/* Game Title & Status Indicator */}
         <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 pointer-events-auto shadow-lg">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400" aria-hidden="true" />
           <span className="font-bold text-white text-xs sm:text-sm truncate max-w-[160px] sm:max-w-xs md:max-w-md">
@@ -79,25 +122,22 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
             <ShieldCheck className="w-3 h-3 text-cyan-400" aria-hidden="true" />
             Verified WebGL
           </span>
-          <span className="text-[11px] text-amber-300 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+          <span className="text-[11px] text-amber-300 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 tabular-nums">
             <span aria-hidden="true">⏱ </span>{formatTimer(elapsed)}
           </span>
         </div>
 
-        {/* Action Controls */}
         <div className="flex items-center gap-2 pointer-events-auto">
-          {/* Submit / Claim Score */}
           <button
             type="button"
             onClick={handleFinishSession}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 text-ink-950 font-black text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-gold-500 to-amber-600 text-ink-950 font-black text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
             title="Claim your score and convert into Ethiopian Ranked Points (RP)"
           >
-            <Trophy className="w-3.5 h-3.5 fill-current" aria-hidden="true" />
+            <Trophy className="w-3.5 h-3.5 fill-current shrink-0" aria-hidden="true" />
             <span>Claim {simulatedScore.toLocaleString()} RP</span>
           </button>
 
-          {/* Refresh / Reload Frame */}
           <button
             type="button"
             onClick={handleReload}
@@ -110,7 +150,6 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
         </div>
       </div>
 
-      {/* Loading Overlay */}
       {isLoading && (
         <div role="status" aria-live="polite" className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-ink-950/95 backdrop-blur-md">
           <Loader2 className="w-10 h-10 text-primary-400 animate-spin" aria-hidden="true" />
@@ -136,7 +175,6 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
         </div>
       )}
 
-      {/* Anti-Redirect and Defensive Frame Shield */}
       <style>{`
         .game-embed-wrapper iframe .adsbygoogle,
         .game-embed-wrapper iframe [class*="banner-ad"],
@@ -152,7 +190,6 @@ export default function Online3DGamePlayer({ game, onGameOver }: Online3DProps) 
         }
       `}</style>
 
-      {/* Embedded WebGL Iframe Player with Anti-Redirect Sandbox */}
       <div className="game-embed-wrapper relative w-full h-full bg-black">
         <iframe
           key={iframeKey}

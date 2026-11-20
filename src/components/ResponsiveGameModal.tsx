@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, Suspense } from 'react';
 import {
   X,
   Maximize2,
@@ -19,11 +19,13 @@ import { calculateMatchRankedPoints, getRankFromPoints } from '@/services/rankin
 import { useAccessibleModal } from '@/hooks/useAccessibleModal';
 import { formatDurationShort, wellnessEngine } from '@/services/wellnessEngine';
 import { enforceHttpsUrl } from '@/lib/env';
-import AddisDrift3DGame from '@/components/games/AddisDrift3DGame';
-import ArcheryMasterGame from '@/components/games/ArcheryMasterGame';
-import FreeFire3DGame from '@/components/games/FreeFire3DGame';
-import GrandmasterChessGame from '@/components/games/GrandmasterChessGame';
-import RetroArcadeGame from '@/components/games/RetroArcadeGame';
+import { lazyWithRetry } from '@/utils/lazyWithRetry';
+
+const AddisDrift3DGame = lazyWithRetry(() => import('@/components/games/AddisDrift3DGame'));
+const ArcheryMasterGame = lazyWithRetry(() => import('@/components/games/ArcheryMasterGame'));
+const FreeFire3DGame = lazyWithRetry(() => import('@/components/games/FreeFire3DGame'));
+const GrandmasterChessGame = lazyWithRetry(() => import('@/components/games/GrandmasterChessGame'));
+const RetroArcadeGame = lazyWithRetry(() => import('@/components/games/RetroArcadeGame'));
 
 export interface ResponsiveGameModalProps {
   game: OnlineGame | null;
@@ -415,9 +417,18 @@ export const ResponsiveGameModal: React.FC<ResponsiveGameModalProps> = ({
           {/* Render Either Self-Contained React Canvas/Three.js Game OR Sandboxed Iframe */}
           {showComponentFallback ? (
             <div className="w-full h-full overflow-auto bg-ink-950 flex items-center justify-center">
-              {renderComponentEngine(
-                game.fallback.type === 'component' ? game.fallback.engine : 'racing'
-              )}
+              <Suspense
+                fallback={
+                  <div role="status" aria-live="polite" className="flex flex-col items-center gap-3 text-xs text-slate-300">
+                    <div className="h-10 w-10 rounded-full border-4 border-sky-500/20 border-t-sky-400 animate-spin" aria-hidden="true" />
+                    <span>Loading built-in game engine...</span>
+                  </div>
+                }
+              >
+                {renderComponentEngine(
+                  game.fallback.type === 'component' ? game.fallback.engine : 'racing'
+                )}
+              </Suspense>
             </div>
           ) : (
             <iframe

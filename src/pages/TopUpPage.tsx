@@ -8,12 +8,12 @@ import { games, formatETB, rarityStyles } from '@/data/catalog';
 import type { Game, TopUpPackage, MembershipTier, GamePass, CrateItem } from '@/data/catalog';
 import Reveal, { StaggerGrid, StaggerItem } from '@/components/Reveal';
 import ResilientImage from '@/components/ResilientImage';
-import ItemShowcase3D from '@/components/ItemShowcase3D';
 import type { ProductItem } from '@/services/db';
 import { useTilt } from '@/hooks/useMotion';
 import { lazyWithRetry } from '@/utils/lazyWithRetry';
 
 const CheckoutModal = lazyWithRetry(() => import('@/components/CheckoutModal'));
+const ItemShowcase3D = lazyWithRetry(() => import('@/components/ItemShowcase3D'));
 
 type Tab = 'topup' | 'membership' | 'passes' | 'crates';
 
@@ -246,7 +246,9 @@ function GameShowcase({ game }: { game: Game }) {
                   <TopIcon className="h-3.5 w-3.5" aria-hidden="true" /> {game.topUpLabel}
                 </span>
               </div>
-              <ItemShowcase3D game={game} />
+              <Suspense fallback={<div className="flex h-full min-h-[340px] items-center justify-center text-xs text-slate-400">Loading 3D showcase...</div>}>
+                <ItemShowcase3D game={game} />
+              </Suspense>
             </div>
             <div className="min-w-0">
               <h3 className="font-display text-lg font-bold text-white">About {game.name}</h3>

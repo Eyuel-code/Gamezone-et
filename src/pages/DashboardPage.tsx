@@ -903,6 +903,8 @@ export default function DashboardPage({
                         <img
                           src={gamingLoungeCover}
                           alt="Tournament arena"
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover opacity-30 mix-blend-screen"
                           referrerPolicy="no-referrer"
                         />
@@ -1110,7 +1112,7 @@ export default function DashboardPage({
                   Join 14,000+ Ethiopian gamers for squad matching and tournament room updates.
                 </p>
                 <a
-                  href="https://t.me"
+                  href="https://t.me/GameZoneET"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-400 hover:text-primary-300 pt-1"
@@ -1432,6 +1434,9 @@ export default function DashboardPage({
                         </h3>
                         <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
                           {game.tagline || game.description}
+                        </p>
+                        <p className="text-[10px] font-medium text-emerald-300 truncate mt-1">
+                          {game.accessibilityTags.slice(0, 2).join(' · ')}
                         </p>
                       </div>
                       <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between gap-2 text-[10px]">

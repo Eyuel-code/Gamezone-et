@@ -235,14 +235,26 @@ export default function NewsPage() {
 
                 <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-3">
-                    <a
-                      href={activeArticle.sourceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-400 hover:underline min-h-[28px]"
-                    >
-                      View Original Release <ExternalLink className="h-3 w-3" aria-hidden="true" />
-                    </a>
+                    {(() => {
+                      const isInternal = activeArticle.sourceUrl.startsWith('https://gamezone.et');
+                      const resolvedHref = isInternal
+                        ? `${window.location.origin}/#${activeArticle.sourceUrl.replace('https://gamezone.et', '') || '/news'}`
+                        : activeArticle.sourceUrl;
+                      return (
+                        <a
+                          href={resolvedHref}
+                          target={isInternal ? undefined : '_blank'}
+                          rel={isInternal ? undefined : 'noopener noreferrer'}
+                          onClick={() => {
+                            if (isInternal) setActiveArticle(null);
+                          }}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-400 hover:underline min-h-[28px]"
+                        >
+                          {isInternal ? 'Open Section in App' : 'View Original Release'}{' '}
+                          <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                        </a>
+                      );
+                    })()}
                     <button
                       type="button"
                       onClick={() => {

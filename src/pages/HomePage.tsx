@@ -382,6 +382,8 @@ function GameCard({ game, onTopUp }: { game: typeof games[number]; onTopUp: () =
         <img
           src={game.coverImage}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover opacity-50 transition-transform duration-500 group-hover:scale-110"
           referrerPolicy="no-referrer"
         />

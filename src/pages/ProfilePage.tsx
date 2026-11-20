@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { motion } from 'motion/react';
 import {
   User,
@@ -34,11 +34,13 @@ import { securityEngine } from '@/services/securityEngine';
 import { formatETB } from '@/data/catalog';
 import { getRankFromPoints } from '@/services/ranking';
 import UserAvatar from '@/components/UserAvatar';
-import AvatarPicker from '@/components/AvatarPicker';
-import IdentityVerificationModal from '@/components/IdentityVerificationModal';
+import { lazyWithRetry } from '@/utils/lazyWithRetry';
 import { DEFAULT_AVATAR_URL } from '@/utils/avatarUtils';
 import { maskEmailAddress, maskPhoneNumber, maskSecretValue, formatShortHash } from '@/utils/masking';
 import { formatEthiopianCity } from '@/utils/location';
+
+const AvatarPicker = lazyWithRetry(() => import('@/components/AvatarPicker'));
+const IdentityVerificationModal = lazyWithRetry(() => import('@/components/IdentityVerificationModal'));
 
 const ETHIOPIAN_CITIES = [
   'Addis Ababa',
@@ -450,12 +452,14 @@ export default function ProfilePage({
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
-              <AvatarPicker
-                value={avatarDraft}
-                onChange={handleAvatarSelected}
-                displayName={currentUser.gamerTag}
-                compact
-              />
+              <Suspense fallback={<div className="py-4 text-xs text-slate-400">Loading avatar picker...</div>}>
+                <AvatarPicker
+                  value={avatarDraft}
+                  onChange={handleAvatarSelected}
+                  displayName={currentUser.gamerTag}
+                  compact
+                />
+              </Suspense>
             </div>
           )}
         </div>
@@ -811,12 +815,14 @@ export default function ProfilePage({
               )}
 
               <div className="rounded-2xl border border-white/10 bg-ink-950/40 p-4">
-                <AvatarPicker
-                  value={avatarDraft}
-                  onChange={handleAvatarSelected}
-                  displayName={gamerTag || currentUser.gamerTag}
-                  label="Profile Photo (Device Upload or 5 Presets)"
-                />
+                <Suspense fallback={<div className="py-4 text-xs text-slate-400">Loading avatar picker...</div>}>
+                  <AvatarPicker
+                    value={avatarDraft}
+                    onChange={handleAvatarSelected}
+                    displayName={gamerTag || currentUser.gamerTag}
+                    label="Profile Photo (Device Upload or 5 Presets)"
+                  />
+                </Suspense>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
@@ -1354,19 +1360,23 @@ export default function ProfilePage({
         )}
       </div>
 
-      <IdentityVerificationModal
-        isOpen={verifyModalOpen}
-        onClose={() => setVerifyModalOpen(false)}
-        currentUser={currentUser}
-        onVerified={(updated) => {
-          setCurrentUser(updated);
-          onNotify?.(`Identity verified and bound (${updated.identityMasked}).`, 'success');
-        }}
-        onWarning={(msg, severe) => {
-          setCurrentUser(db.getCurrentUser());
-          onNotify?.(msg, severe ? 'error' : 'warning');
-        }}
-      />
+      {verifyModalOpen && (
+        <Suspense fallback={null}>
+          <IdentityVerificationModal
+            isOpen={verifyModalOpen}
+            onClose={() => setVerifyModalOpen(false)}
+            currentUser={currentUser}
+            onVerified={(updated) => {
+              setCurrentUser(updated);
+              onNotify?.(`Identity verified and bound (${updated.identityMasked}).`, 'success');
+            }}
+            onWarning={(msg, severe) => {
+              setCurrentUser(db.getCurrentUser());
+              onNotify?.(msg, severe ? 'error' : 'warning');
+            }}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

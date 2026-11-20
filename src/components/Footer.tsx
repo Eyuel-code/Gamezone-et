@@ -138,7 +138,7 @@ export default function Footer({ onNavigate, onNotify }: FooterProps) {
               className="no-heat flex items-center gap-2.5 cursor-pointer text-left"
             >
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary-400 to-accent-500 text-ink-950">
-                <Gamepad2 className="h-5 w-5" />
+                <Gamepad2 className="h-5 w-5" aria-hidden="true" />
               </span>
               <span className="font-display text-lg font-bold text-white">
                 GameZone<span className="text-primary-400">ET</span>
